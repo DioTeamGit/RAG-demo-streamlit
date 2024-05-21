@@ -4,4 +4,4 @@ llama-index
 llama-index-llms-openai
 nltk
 pypdf
-doc2txt
+docx2txt
