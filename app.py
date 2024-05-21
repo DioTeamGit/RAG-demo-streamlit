@@ -22,7 +22,7 @@ def load_data():
         docs = reader.load_data()
         # llm = OpenAI(model="gpt-3.5-turbo", temperature=0.5, system_prompt="You are an expert o$
         # index = VectorStoreIndex.from_documents(docs)
-        service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0.5, system_prompt="Sei un avvocato specializzato in diritto del lavoro e il tuo compito è rispondere a domande tecniche in questo ambito relative ai documenti forniti. Mantieni le mie risposte tecniche e basate su fonti, senza inventare aspetti non supportati dalla legge."))
+        service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0.5, system_prompt="Sei un avvocato specializzato in diritto del lavoro e il tuo compito è rispondere a domande tecniche in questo ambito relative ai documenti forniti. Mantieni le mie risposte tecniche e basate su fonti, senza inventare aspetti non supportati dalla legge. Rispondi solo in Italiano"))
         index = VectorStoreIndex.from_documents(docs, service_context=service_context)
         return index
 
