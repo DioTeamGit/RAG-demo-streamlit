@@ -12,7 +12,7 @@ st.title("Q&A con documenti")
          
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
-        {"role": "assistant", "content": "Ask me a question about Streamlit's open-source Python library!"}
+        {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
     ]
 
 @st.cache_resource(show_spinner=False)
