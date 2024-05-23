@@ -9,6 +9,7 @@ except ImportError:
 st.set_page_config(page_title="Q&A con documenti", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key
 st.title("Q&A con documenti")
+#Settings.emebed_model= 
          
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
@@ -26,7 +27,28 @@ def load_data():
         index = VectorStoreIndex.from_documents(docs, service_context=service_context)
         return index
 
-index = load_data()
+def load_data_qdrant():
+  client = QdrantClient(url='https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io', port=443, api_key=st.secrets.qdrant_key)
+  reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
+  documents = reader.load_data()
+  collection_name = "RAG"
+  vector_store = QdrantVectorStore(
+      client=client,
+      collection_name=collection_name,
+      enable_hybrid=True,
+  )
+
+  storage_context = StorageContext.from_defaults(vector_store=vector_store)
+  index = VectorStoreIndex.from_documents(
+      documents,
+      storage_context=storage_context,
+  )
+  return index
+
+index = load_data_qdrant()
+
+
+
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="condense_question", verbose=True)
