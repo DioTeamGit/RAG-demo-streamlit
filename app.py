@@ -26,36 +26,8 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
     ]
 
-@st.cache_resource(show_spinner=False)
-def load_data():
-    with st.spinner(text="Loading and indexing the Streamlit docs – hang tight! This should take 1-2 minutes."):
-        reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
-        docs = reader.load_data()
-        # llm = OpenAI(model="gpt-3.5-turbo", temperature=0.5, system_prompt="You are an expert o$
-        # index = VectorStoreIndex.from_documents(docs)
-        service_context = ServiceContext.from_defaults(llm=OpenAI(model="gpt-3.5-turbo", temperature=0.5, system_prompt="Sei un avvocato specializzato in diritto del lavoro e il tuo compito è rispondere a domande tecniche in questo ambito relative ai documenti forniti. Mantieni le mie risposte tecniche e basate su fonti, senza inventare aspetti non supportati dalla legge. Rispondi solo in Italiano"))
-        index = VectorStoreIndex.from_documents(docs, service_context=service_context)
-        return index
-
-def load_data_qdrant():
-  with st.spinner(text="Loading and indexing the Streamlit docs – hang tight! This should take 1-2 minutes."):
-    client = qdrant_client.QdrantClient(url="https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333",  api_key=st.secrets.qdrant_key)
-    reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
-    documents = reader.load_data()
-    collection_name = "RAG"
-    vector_store = QdrantVectorStore(
-        client=client,
-        collection_name=collection_name,
-    )
-
-  storage_context = StorageContext.from_defaults(vector_store=vector_store)
-  index = VectorStoreIndex.from_documents(
-      documents,
-      storage_context=storage_context,
-  )
-  return index
-
-index = load_data_qdrant()
+vector_store = QdrantVectorStore(client=client, collection_name="RAG_2")
+index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
 
 
