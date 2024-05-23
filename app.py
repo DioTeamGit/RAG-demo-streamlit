@@ -7,15 +7,18 @@ try:
 except ImportError:
   from llama_index.core import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader, StorageContext
 
-from llama_index.embeddings.fastembed import FastEmbedEmbedding
+from llama_index.embeddings.openai import OpenAIEmbedding
+from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core import Settings
 
-
+def initialize_llm():
+    Settings.llm = OpenAI(model="gpt-3.5-turbo", temperature=0)
+    embed_model = OpenAIEmbedding()
+    Settings.embed_model = embed_model
 
 st.set_page_config(page_title="Q&A con documenti", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key
 st.title("Q&A con documenti")
-Settings.embed_model = FastEmbedEmbedding(model_name="BAAI/bge-base-en-v1.5")
          
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
@@ -34,15 +37,16 @@ def load_data():
         return index
 
 def load_data_qdrant():
-  client = QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io', port=443, api_key=st.secrets.qdrant_key)
-  reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
-  documents = reader.load_data()
-  collection_name = "RAG"
-  vector_store = QdrantVectorStore(
-      client=client,
-      collection_name=collection_name,
-      enable_hybrid=True,
-  )
+  with st.spinner(text="Loading and indexing the Streamlit docs – hang tight! This should take 1-2 minutes."):
+    client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io', port=443, api_key=st.secrets.qdrant_key)
+    reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
+    documents = reader.load_data()
+    collection_name = "RAG"
+    vector_store = QdrantVectorStore(
+        client=client,
+        collection_name=collection_name,
+        enable_hybrid=True,
+    )
 
   storage_context = StorageContext.from_defaults(vector_store=vector_store)
   index = VectorStoreIndex.from_documents(
