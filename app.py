@@ -4,7 +4,7 @@ from llama_index.llms.openai import OpenAI
 try:
   from llama_index import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader
 except ImportError:
-  from llama_index.core import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader
+  from llama_index.core import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader, StorageContext
 
 st.set_page_config(page_title="Q&A con documenti", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key
