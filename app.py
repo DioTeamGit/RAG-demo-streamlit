@@ -1,15 +1,21 @@
 import streamlit as st
 import openai
+import qdrant_client
 from llama_index.llms.openai import OpenAI
 try:
   from llama_index import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader
 except ImportError:
   from llama_index.core import VectorStoreIndex, ServiceContext, Document, SimpleDirectoryReader, StorageContext
 
+from llama_index.embeddings.fastembed import FastEmbedEmbedding
+from llama_index.core import Settings
+
+
+
 st.set_page_config(page_title="Q&A con documenti", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key
 st.title("Q&A con documenti")
-#Settings.emebed_model= 
+Settings.embed_model = FastEmbedEmbedding(model_name="BAAI/bge-base-en-v1.5")
          
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
