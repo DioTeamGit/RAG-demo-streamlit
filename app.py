@@ -11,12 +11,6 @@ from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core import Settings
 
-def initialize_llm():
-    Settings.llm = OpenAI(model="gpt-3.5-turbo", temperature=0)
-    embed_model = OpenAIEmbedding()
-    Settings.embed_model = embed_model
-#inizializzo llm
-#initialize_llm()
 st.set_page_config(page_title="Q&A con documenti", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key_p
 st.title("Q&A con documenti")
@@ -33,7 +27,7 @@ index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
-        st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai, verbose=True)
+        st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
 
 if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
