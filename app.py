@@ -46,7 +46,6 @@ def load_data_qdrant():
     vector_store = QdrantVectorStore(
         client=client,
         collection_name=collection_name,
-        enable_hybrid=True,
     )
 
   storage_context = StorageContext.from_defaults(vector_store=vector_store)
