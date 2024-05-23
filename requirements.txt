@@ -5,3 +5,4 @@ llama-index-llms-openai
 nltk
 pypdf
 docx2txt
+qdrant_client
