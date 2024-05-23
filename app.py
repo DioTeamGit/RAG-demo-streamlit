@@ -16,7 +16,7 @@ def initialize_llm():
     embed_model = OpenAIEmbedding()
     Settings.embed_model = embed_model
 #inizializzo llm
-initialize_llm()
+#initialize_llm()
 st.set_page_config(page_title="Q&A con documenti", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key
 st.title("Q&A con documenti")
