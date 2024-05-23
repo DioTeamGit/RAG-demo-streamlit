@@ -18,7 +18,7 @@ def initialize_llm():
 #inizializzo llm
 #initialize_llm()
 st.set_page_config(page_title="Q&A con documenti", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
-openai.api_key = st.secrets.openai_key
+openai.api_key = st.secrets.openai_key_p
 st.title("Q&A con documenti")
          
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
