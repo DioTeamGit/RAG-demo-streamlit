@@ -7,3 +7,4 @@ pypdf
 docx2txt
 qdrant_client
 llama-index-vector-stores-qdrant
+fastembed
