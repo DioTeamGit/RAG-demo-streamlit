@@ -25,7 +25,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
     st.session_state.messages = [
         {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
     ]
-
+client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key="f1MQYBVXaC9V91db8yVMefodZbNcIeJPKS5paWFeL47ZvjHsvwU02g")
 vector_store = QdrantVectorStore(client=client, collection_name="RAG_2")
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
