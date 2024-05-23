@@ -6,3 +6,4 @@ nltk
 pypdf
 docx2txt
 qdrant_client
+lama-index-vector-stores-qdrant
