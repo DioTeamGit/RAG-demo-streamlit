@@ -39,7 +39,7 @@ def load_data():
 
 def load_data_qdrant():
   with st.spinner(text="Loading and indexing the Streamlit docs – hang tight! This should take 1-2 minutes."):
-    client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io', port=443, api_key=st.secrets.qdrant_key)
+    client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io', api_key=st.secrets.qdrant_key)
     reader = SimpleDirectoryReader(input_dir="./data", recursive=True)
     documents = reader.load_data()
     collection_name = "RAG"
