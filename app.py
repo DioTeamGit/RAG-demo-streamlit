@@ -11,10 +11,28 @@ from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core import Settings
 
-st.set_page_config(page_title="Q&A con documenti", page_icon="🦙", layout="centered", initial_sidebar_state="auto", menu_items=None)
+st.set_page_config(page_title="Q&A con documenti", page_icon="⚖️", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key_p
 st.title("Q&A con documenti")
          
+st.sidebar.title("Seleziona i parametri di input")
+    
+    # Temperature slider for response creativity
+temperature = st.sidebar.slider("Adjust Response Creativity", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+
+    # Response format options
+format = st.sidebar.radio("Select Response Format", options=['Email', 'Paragraph', 'List', 'Nessuno'])
+    
+    # Legal query options
+query_options = {
+    "Termini del Contratto": "Spiega le considerazioni chiave per i contratti di lavoro.",
+    "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
+    "Norme sul Licenziamento": "Quali sono le basi legali per il licenziamento?",
+    "Sicurezza sul Lavoro": "Riassumi le responsabilità del datore di lavoro per la sicurezza sul lavoro."
+}
+
+selected_query = st.sidebar.selectbox("Choose a Legal Query", options=list(query_options.keys()))
+
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
         {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
