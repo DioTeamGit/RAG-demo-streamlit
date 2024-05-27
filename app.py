@@ -34,18 +34,6 @@ for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
-# If last message is not from assistant, generate a new response
-def reset_conversation():
-    # Reset chat history and any other relevant state variables
-    st.session_state.chat_history = []
-    # Clear the screen by rerunning the app
-    st.experimental_rerun()
-
-# Initialize chat history in session state if it does not exist
-if 'chat_history' not in st.session_state:
-    st.session_state.chat_history = []
-
-st.button('Reset Chat', on_click=reset_conversation)
 
 
 
@@ -57,3 +45,12 @@ if st.session_state.messages[-1]["role"] != "assistant":
             message = {"role": "assistant", "content": response.response}
             st.session_state.messages.append(message) # Add response to message history
 
+
+# If last message is not from assistant, generate a new response
+def reset_conversation():
+    # Reset chat history and any other relevant state variables
+    st.session_state.chat_history = []
+    # Clear the screen by rerunning the app
+    st.experimental_rerun()
+
+st.button('Reset Chat', on_click=reset_conversation)
