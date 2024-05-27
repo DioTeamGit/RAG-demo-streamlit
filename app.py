@@ -24,15 +24,28 @@ temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_v
 format = st.sidebar.radio("Seleziona formato", options=['E-mail', 'Paragrafo', 'Lista', 'Formato Libero'])
     
     # Legal query options
-query_options = {
+   # Use session state to store the selected query
+if 'selected_query' not in st.session_state:
+    st.session_state.selected_query = None
+
+# Legal query buttons in Italian
+st.sidebar.write("Scegli un prompt")
+query_texts = {
     "Termini del Contratto": "Spiega le considerazioni chiave per i contratti di lavoro.",
     "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
     "Norme sul Licenziamento": "Quali sono le basi legali per il licenziamento?",
     "Sicurezza sul Lavoro": "Riassumi le responsabilità del datore di lavoro per la sicurezza sul lavoro."
 }
 
-selected_query = st.sidebar.selectbox("Prompt più utilizzati", options=list(query_options.keys()))
+for key, value in query_texts.items():
+    if st.sidebar.button(value):
+        st.session_state.selected_query = key
 
+# Display the response in the main area if a query is selected
+if st.session_state.selected_query:
+    st.write(f"Query: {query_texts[st.session_state.selected_query]}")
+    st.write(f"Formato: {format}")
+    st.write(f"Temperatura: {temperature}")
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
         {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
