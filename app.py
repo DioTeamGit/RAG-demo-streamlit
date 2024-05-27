@@ -51,6 +51,6 @@ def reset_conversation():
     # Reset chat history and any other relevant state variables
     st.session_state.chat_history = []
     # Clear the screen by rerunning the app
-    st.experimental_rerun()
+    st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
 
 st.button('Reset Chat', on_click=reset_conversation)
