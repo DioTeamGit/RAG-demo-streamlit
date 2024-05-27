@@ -21,7 +21,7 @@ st.sidebar.title("Seleziona i parametri di input")
 temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
 
     # Response format options
-format = st.sidebar.radio("Seleziona formato", options=['Email', 'Paragraph', 'List', 'Formato Libero'])
+format = st.sidebar.radio("Seleziona formato", options=['E-mail', 'Paragrafo', 'Lista', 'Formato Libero'])
     
     # Legal query options
 query_options = {
