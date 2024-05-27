@@ -18,10 +18,10 @@ st.title("Q&A con documenti")
 st.sidebar.title("Seleziona i parametri di input")
     
     # Temperature slider for response creativity
-temperature = st.sidebar.slider("Adjust Response Creativity", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
 
     # Response format options
-format = st.sidebar.radio("Select Response Format", options=['Email', 'Paragraph', 'List', 'Nessuno'])
+format = st.sidebar.radio("Seleziona formato", options=['Email', 'Paragraph', 'List', 'Formato Libero'])
     
     # Legal query options
 query_options = {
@@ -31,7 +31,7 @@ query_options = {
     "Sicurezza sul Lavoro": "Riassumi le responsabilità del datore di lavoro per la sicurezza sul lavoro."
 }
 
-selected_query = st.sidebar.selectbox("Choose a Legal Query", options=list(query_options.keys()))
+selected_query = st.sidebar.selectbox("Prompt più utilizzati", options=list(query_options.keys()))
 
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
