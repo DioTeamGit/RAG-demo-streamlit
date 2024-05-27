@@ -24,8 +24,6 @@ vector_store = QdrantVectorStore(client=client, collection_name="RAG_2")
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store)
 
 
-
-
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
 
@@ -44,3 +42,8 @@ if st.session_state.messages[-1]["role"] != "assistant":
             st.write(response.response)
             message = {"role": "assistant", "content": response.response}
             st.session_state.messages.append(message) # Add response to message history
+
+def reset_conversation():
+  st.session_state.conversation = None
+  st.session_state.chat_history = None
+st.button('Reset Chat', on_click=reset_conversation)
