@@ -36,7 +36,7 @@ if 'selected_query' not in st.session_state:
 # Legal query buttons in Italian
 st.sidebar.write("Scegli un prompt")
 query_texts = {
-    "Termini del Contratto": "Spiega le considerazioni chiave per i contratti di lavoro.",
+    "Termini del Contratto": "Spiega le considerazioni chiave per il seguente contratto nazionale",
     "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
     "Norme sul Licenziamento": "Quali sono le basi legali per il licenziamento?",
     "Sicurezza sul Lavoro": "Riassumi le responsabilità del datore di lavoro per la sicurezza sul lavoro."
@@ -59,7 +59,7 @@ index = VectorStoreIndex.from_vector_store(vector_store=vector_store, )
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
-        
+
 print(st.session_state.selected_query)
 if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt + "Nel seguente formato:" + query_texts[st.session_state.selected_query]})
