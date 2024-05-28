@@ -68,7 +68,7 @@ if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save 
 
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
-        st.write(prompt)
+        st.write(message["content"])
 
 
 if st.session_state.messages[-1]["role"] != "assistant":
