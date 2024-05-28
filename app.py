@@ -42,10 +42,7 @@ for key, value in query_texts.items():
         st.session_state.selected_query = key
 
 # Display the response in the main area if a query is selected
-if st.session_state.selected_query:
-    st.write(f"Query: {query_texts[st.session_state.selected_query]}")
-    st.write(f"Formato: {format}")
-    st.write(f"Temperatura: {temperature}")
+
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
         {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
@@ -60,6 +57,7 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content": prompt})
+
 
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
