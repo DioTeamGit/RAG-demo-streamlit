@@ -63,7 +63,7 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 print(st.session_state.selected_query)
 if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save to chat history
-    st.session_state.messages.append({"role": "user", "content": "Alway use the document in the index to answer:" + prompt})
+    st.session_state.messages.append({"role": "user", "content":  prompt})
 
 
 for message in st.session_state.messages: # Display the prior chat messages
@@ -74,7 +74,7 @@ for message in st.session_state.messages: # Display the prior chat messages
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            response = st.session_state.chat_engine.chat(prompt, tool_choice="query_engine_tool")
+            response = st.session_state.chat_engine.chat(prompt, tool_choice="query_engine_tool") #query engine tool forza la ricerca
             st.write(response.response)
             message = {"role": "assistant", "content": response.response}
             st.session_state.messages.append(message) # Add response to message history
