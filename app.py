@@ -53,7 +53,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
     ]
 client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
-vector_store = QdrantVectorStore(client=client, collection_name="RAG_3")
+vector_store = QdrantVectorStore(client=client, collection_name="RAG_4")
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store, )
 
 
@@ -61,7 +61,7 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
 
 if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save to chat history
-    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "user", "content": prompt + "Nel seguente formato:" + st.session_state.selected_query})
 
 
 for message in st.session_state.messages: # Display the prior chat messages
