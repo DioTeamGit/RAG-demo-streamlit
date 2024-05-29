@@ -34,7 +34,7 @@ Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
 Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
 
     # Response format options
-format = st.sidebar.radio("Seleziona formato", options=['E-mail', 'Paragrafo', 'Lista', 'Formato Libero'])
+format = st.sidebar.radio("Seleziona formato", options=['Formato Libero','E-mail', 'Paragrafo', 'Lista',])
     
     # Legal query options
    # Use session state to store the selected query
@@ -82,7 +82,7 @@ for message in st.session_state.messages: # Display the prior chat messages
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
-            response = st.session_state.chat_engine.chat(prompt, tool_choice="query_engine_tool") #query engine tool forza la ricerca
+            response = st.session_state.chat_engine.chat(prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
             st.write(response.response)
             message = {"role": "assistant", "content": response.response}
             st.session_state.messages.append(message) # Add response to message history
