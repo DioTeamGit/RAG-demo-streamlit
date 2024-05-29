@@ -78,7 +78,7 @@ for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
-context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione. cita sempre tutti i documenti che stai usando"
+context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione. cita sempre tutti i documenti che stai usando. \n"
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
