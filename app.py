@@ -42,7 +42,7 @@ if 'selected_query' not in st.session_state:
     st.session_state.selected_query = None
 
 # Legal query buttons in Italian
-st.sidebar.write("Scegli un prompt")
+st.write("Scegli un prompt")
 query_texts = {
     "Termini del Contratto": "Spiega le considerazioni chiave per il seguente contratto nazionale",
     "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
@@ -73,8 +73,10 @@ print(st.session_state.selected_query)
 
 if st.session_state.selected_query != None:
   prompt=st.session_state.selected_query
+else:
+  prompt=st.st.chat_input("Fai una domanda")
   
-if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save to chat history
+if prompt: # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
 
 for message in st.session_state.messages: # Display the prior chat messages
