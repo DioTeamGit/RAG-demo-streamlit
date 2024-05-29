@@ -14,7 +14,7 @@ from llama_index.core import Settings
 
 
 
-st.set_page_config(page_title="Q&A con documenti", page_icon="⚖️", layout="centered", initial_sidebar_state="auto", menu_items=None)
+st.set_page_config(page_title="Iniziamo!", page_icon="⚖️", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key_p
 st.title("Q&A con documenti")
 
@@ -34,7 +34,7 @@ Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
 Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
 
     # Response format options
-format = st.sidebar.radio("Seleziona formato", options=['Formato Libero','E-mail', 'Paragrafo', 'Lista',])
+format = st.sidebar.radio("Seleziona formato della risposta", options=['Formato Libero','E-mail', 'Paragrafo', 'Lista'])
     
     # Legal query options
    # Use session state to store the selected query
