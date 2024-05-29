@@ -70,9 +70,12 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
 
 print(st.session_state.selected_query)
+
+if st.session_state.selected_query not None:
+  prompt=st.session_state.selected_query
+  
 if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
-
 
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
