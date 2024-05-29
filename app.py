@@ -20,13 +20,14 @@ st.title("Q&A con documenti")
 
          
 st.sidebar.title("Seleziona i parametri di input")
+selection = st.sidebar.selectbox(
+    "Seleziona una collezione di documenti:",
+    ['RAG_4', 'ai_act&data_governance_act']
+)
 temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
 
 # Creazione del widget a tendina
-selection = st.selectbox(
-    "Seleziona un'opzione:",
-    ['RAG_4', 'ai_act&data_governance_act']
-)
+
 
 
 Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
@@ -50,7 +51,7 @@ query_texts = {
 }
 
 for key, value in query_texts.items():
-    if st.sidebar.button(value):
+    if st.button(value):
         st.session_state.selected_query = key
 
 # Display the response in the main area if a query is selected
@@ -60,7 +61,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
     ]
 client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
-vector_store_4 = QdrantVectorStore(client=client, collection_name="RAG_4")
+vector_store_4 = QdrantVectorStore(client=client, collection_name=selection)
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
 
 print(index)
