@@ -84,6 +84,7 @@ if st.session_state.messages[-1]["role"] != "assistant":
 def reset_conversation():
     # Reset chat history and any other relevant state variables
     st.session_state.chat_history = []
+    st.session_state.chat_engine.chat_history.clear()
     # Clear the screen by rerunning the app
     st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
 
