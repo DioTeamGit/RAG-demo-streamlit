@@ -71,7 +71,7 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 print(st.session_state.selected_query)
 
-if st.session_state.selected_query not None:
+if st.session_state.selected_query != None:
   prompt=st.session_state.selected_query
   
 if prompt := st.chat_input("Fai una domanda"): # Prompt for user input and save to chat history
