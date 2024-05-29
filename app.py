@@ -22,6 +22,13 @@ st.title("Q&A con documenti")
 st.sidebar.title("Seleziona i parametri di input")
 temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
 
+# Creazione del widget a tendina
+selection = st.selectbox(
+    "Seleziona un'opzione:",
+    ['RAG_4', 'ai_act&data_governance_act']
+)
+
+
 Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
 Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
 
