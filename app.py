@@ -92,7 +92,7 @@ print(index)
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine()
 
-print(st.session_state.selected_query)
+st.write(st.session_state.chat_engine)
 
 
 prompt=st.chat_input("Fai una domanda")
@@ -111,7 +111,7 @@ for message in st.session_state.messages: # Display the prior chat messages
 
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
+        with st.spinner("Sto elaborando una risposta..."):
             #response = st.session_state.chat_engine.chat(context+prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
             response = st.session_state.chat_engine.chat(prompt)
             st.write(response.sources[0].content)
