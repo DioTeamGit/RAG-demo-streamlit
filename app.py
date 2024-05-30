@@ -16,28 +16,39 @@ from llama_index.core import Settings
 
 st.set_page_config(page_title="Iniziamo!", page_icon="⚖️", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key_p
-st.title("Iniziamo!")
 
-         
-st.sidebar.title("Seleziona i parametri di input")
-selection = st.sidebar.multiselect(
-    "Seleziona una collezione di documenti:",
-    ['RAG_4', 'ai_act&data_governance_act']
-)
-temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
-
-# Creazione del widget a tendina
-
-
-
+# Settings
 Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
 Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
 
-    # Response format options
+
+st.title("Iniziamo!")
+context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione.\n" # contesto
+         
+st.sidebar.title("Seleziona i parametri di input")
+selection = st.sidebar.selectbox(
+    "Seleziona una collezione di documenti:",
+    ['RAG_4', 'ai_act&data_governance_act']
+)
+
+# temperatura
+
+temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
+
+
+# Formato
 format = st.sidebar.radio("Seleziona formato della risposta", options=['Formato Libero','E-mail', 'Paragrafo', 'Lista'])
-    
-    # Legal query options
-   # Use session state to store the selected query
+
+# Checkbox fonti
+
+fonti = st.checkbox("Cita le fonti")
+
+if agree:
+    context = context + "Per ogni informazione cita sempre le fonti da cui hai preso questa informazione e mettile in grassetto."
+
+# Legal query options
+# Use session state to store the selected query
+
 if 'selected_query' not in st.session_state:
     st.session_state.selected_query = None
 
@@ -87,7 +98,7 @@ if prompt: # Prompt for user input and save to chat history
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
         st.write(message["content"])
-context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione. cita sempre tutti i documenti che stai usando. \n" # contesto
+
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
