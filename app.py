@@ -73,7 +73,7 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 print(st.session_state.selected_query)
 
-st.col1.chat_input("Fai una domanda")
+col1.chat_input("Fai una domanda")
 
 if st.session_state.selected_query != None:
   prompt=st.session_state.selected_query
@@ -106,4 +106,4 @@ def reset_conversation():
     # Clear the screen by rerunning the app
     st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
 
-st.col2.button('Reset Chat', on_click=reset_conversation)
+col2.button('Reset Chat', on_click=reset_conversation)
