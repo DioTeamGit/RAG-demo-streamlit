@@ -128,6 +128,6 @@ with col2:
         st.session_state.chat_history = []
         st.session_state.chat_engine.chat_history.clear()
         # Clear the screen by rerunning the app
-        st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
+        st.session_state.messages=[{"role": "assistant", "content": "Ciao, come posso esserti utile?"}]
 
     st.button('⟳', on_click=reset_conversation, help="Premi per fare il reset della conversazione")
