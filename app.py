@@ -73,13 +73,10 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 print(st.session_state.selected_query)
 
-for message in st.session_state.messages: # Display the prior chat messages
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+# qui cerco di 
 
-col1, col2 = st.columns([5, 1])
-prompt=col1.chat_input("Fai una domanda")
-
+prompt=st.chat_input("Fai una domanda")
+#se seleziono il prompt dai buttons lo sovracrivo
 if st.session_state.selected_query != None:
   prompt=st.session_state.selected_query
 
@@ -87,8 +84,10 @@ if prompt: # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
     st.session_state_selected_query=None
 
-
-context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione. cita sempre tutti i documenti che stai usando. \n"
+for message in st.session_state.messages: # Display the prior chat messages
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione. cita sempre tutti i documenti che stai usando. \n" # contesto
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Thinking..."):
@@ -96,6 +95,10 @@ if st.session_state.messages[-1]["role"] != "assistant":
             st.write(response.response)
             message = {"role": "assistant", "content": response.response}
             st.session_state.messages.append(message) # Add response to message history
+
+
+
+
 
 
 # If last message is not from assistant, generate a new response
