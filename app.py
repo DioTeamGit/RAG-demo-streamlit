@@ -73,23 +73,35 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 print(st.session_state.selected_query)
 
-prompt=""
 
-if prompt!="": # Prompt for user input and save to chat history
+"""
+prompt=col1.chat_input("Fai una domanda")
+
+if st.session_state.selected_query != None:
+  prompt=st.session_state.selected_query
+else:
+  prompt=col1.chat_input("Fai una domanda")
+
+
+if prompt: # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
     st.session_state_selected_query=None
-
-
+    """
   
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
 col1, col2 = st.columns([5, 1])
-col1.chat_input("Fai una domanda")
+prompt=col1.chat_input("Fai una domanda")
 
 if st.session_state.selected_query != None:
   prompt=st.session_state.selected_query
+
+if prompt: # Prompt for user input and save to chat history
+    st.session_state.messages.append({"role": "user", "content":  prompt})
+    st.session_state_selected_query=None
+
 
 context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione. cita sempre tutti i documenti che stai usando. \n"
 if st.session_state.messages[-1]["role"] != "assistant":
