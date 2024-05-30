@@ -73,8 +73,6 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 print(st.session_state.selected_query)
 
-col1.chat_input("Fai una domanda")
-
 prompt=col1.chat_input("Fai una domanda")
 
 if st.session_state.selected_query != None:
