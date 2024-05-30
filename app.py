@@ -129,4 +129,4 @@ with col2:
         # Clear the screen by rerunning the app
         st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
 
-    st.button('Reset Chat', on_click=reset_conversation)
+    st.button('⟳', on_click=reset_conversation)
