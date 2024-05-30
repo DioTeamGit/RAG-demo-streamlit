@@ -20,7 +20,8 @@ openai.api_key = st.secrets.openai_key_p
 
 
 
-st.title("Iniziamo!")
+col1, col2 = st.columns([5,1])
+col1.title("Iniziamo!")
 context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione.\n" # contesto
          
 st.sidebar.title("Personalizza le risposte")
@@ -51,7 +52,6 @@ if fonti:
     context = context + "Per ogni informazione cita sempre le fonti da cui hai preso questa informazione e mettile in grassetto."
 
 # qui cerco di 
-col1, col2 = st.columns([5,1])
 
 
 # Prompt preesitenti
