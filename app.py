@@ -17,9 +17,7 @@ from llama_index.core import Settings
 st.set_page_config(page_title="Iniziamo!", page_icon="⚖️", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key_p
 
-# Settings
-Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
-Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
+
 
 
 st.title("Iniziamo!")
@@ -36,6 +34,12 @@ selection = st.sidebar.selectbox(
 temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01)
 
 
+# Settings
+
+Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
+
+Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
+
 # Formato
 format = st.sidebar.radio("Seleziona formato della risposta", options=['Formato Libero','E-mail', 'Paragrafo', 'Lista'])
 
@@ -46,8 +50,7 @@ fonti = st.checkbox("Cita le fonti")
 if agree:
     context = context + "Per ogni informazione cita sempre le fonti da cui hai preso questa informazione e mettile in grassetto."
 
-# Legal query options
-# Use session state to store the selected query
+# Prompt preesitenti
 
 if 'selected_query' not in st.session_state:
     st.session_state.selected_query = None
