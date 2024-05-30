@@ -109,4 +109,4 @@ def reset_conversation():
     # Clear the screen by rerunning the app
     st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
 
-col2.button('Reset Chat', on_click=reset_conversation)
+st.button('Reset Chat', on_click=reset_conversation)
