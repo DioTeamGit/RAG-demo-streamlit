@@ -119,14 +119,14 @@ if st.session_state.messages[-1]["role"] != "assistant":
 
 
 
+with st.container(heigth=800):
+    with col2:
+    # If last message is not from assistant, generate a new response
+        def reset_conversation():
+            # Reset chat history and any other relevant state variables
+            st.session_state.chat_history = []
+            st.session_state.chat_engine.chat_history.clear()
+            # Clear the screen by rerunning the app
+            st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
 
-with col2:
-# If last message is not from assistant, generate a new response
-    def reset_conversation():
-        # Reset chat history and any other relevant state variables
-        st.session_state.chat_history = []
-        st.session_state.chat_engine.chat_history.clear()
-        # Clear the screen by rerunning the app
-        st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
-
-    st.button('Reset Chat', on_click=reset_conversation)
+        st.button('Reset Chat', on_click=reset_conversation)
