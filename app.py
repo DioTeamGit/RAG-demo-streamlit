@@ -92,7 +92,7 @@ print(index)
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
 
-st.write(st.session_state.chat_engine)
+#st.write(st.session_state.chat_engine)
 
 
 prompt=st.chat_input("Fai una domanda")
