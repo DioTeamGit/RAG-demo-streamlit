@@ -44,8 +44,9 @@ Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
 format = st.sidebar.radio("Seleziona formato della risposta", options=['Formato Libero','E-mail', 'Paragrafo', 'Lista'])
 
 # Checkbox fonti
+st.sidebar.write("Aggiungi le fonti alle risposte:")
 
-fonti = st.sidebar.checkbox("Cita le fonti")
+fonti = st.sidebar.toggle("Cita le fonti")
 
 if fonti:
     context = context + "Per ogni informazione cita sempre le fonti da cui hai preso questa informazione e mettile in grassetto."
