@@ -50,6 +50,10 @@ fonti = st.sidebar.toggle("Cita le fonti")
 if fonti:
     context = context + "Per ogni informazione cita sempre le fonti da cui hai preso questa informazione e mettile in grassetto."
 
+# qui cerco di 
+col1, col2 = st.columns([5,1])
+
+
 # Prompt preesitenti
 
 if 'selected_query' not in st.session_state:
@@ -57,8 +61,6 @@ if 'selected_query' not in st.session_state:
 
 # Legal query buttons in Italian
 
-# qui cerco di 
-col1, col2 = st.columns([5,1])
 
 with col1:
     st.write("Scegli un prompt")
