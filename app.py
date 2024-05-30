@@ -20,7 +20,7 @@ st.title("Iniziamo!")
 
          
 st.sidebar.title("Seleziona i parametri di input")
-selection = st.sidebar.selectbox(
+selection = st.sidebar.multiselect(
     "Seleziona una collezione di documenti:",
     ['RAG_4', 'ai_act&data_governance_act']
 )
