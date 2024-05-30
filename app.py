@@ -116,10 +116,10 @@ if st.session_state.messages[-1]["role"] != "assistant":
             #response = st.session_state.chat_engine.chat(prompt)
             sources = set([response.source_nodes[i].node.metadata["file_name"] for i in range(0,len(response.source_nodes))])
             if fonti:
-                messaggio = response + "Fonti \n" + str(sources)
+                messaggio = response.response + "Fonti \n" + str(sources)
                 message = {"role": "assistant", "content": messaggio}
             else:
-                message = {"role": "assistant", "content": response}
+                message = {"role": "assistant", "content": response.response}
             st.session_state.messages.append(message) # Add response to message history
 
 
