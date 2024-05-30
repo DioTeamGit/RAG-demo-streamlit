@@ -25,7 +25,7 @@ col1.title("Iniziamo!")
 context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione.\n" # contesto
          
 st.sidebar.title("Personalizza le risposte")
-selection = st.sidebar.selectbox(
+selection = st.sidebar.multiselect(
     "Seleziona una collezione di documenti:",
     ['RAG_4', 'ai_act&data_governance_act']
 )
