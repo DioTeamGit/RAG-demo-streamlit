@@ -62,60 +62,60 @@ if 'selected_query' not in st.session_state:
 # Legal query buttons in Italian
 
 
-with col1:
-    st.write("Scegli un prompt")
-    query_texts = {
-        "Termini del Contratto": "Spiega le considerazioni chiave per il seguente contratto nazionale",
-        "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
-        "Norme sul Licenziamento": "Quali sono le basi legali per il licenziamento?",
-        "Sicurezza sul Lavoro": "Riassumi le responsabilità del datore di lavoro per la sicurezza sul lavoro."
-    }
 
-    for key, value in query_texts.items():
-        if st.button(value):
-            st.session_state.selected_query = value
+st.write("Scegli un prompt")
+query_texts = {
+    "Termini del Contratto": "Spiega le considerazioni chiave per il seguente contratto nazionale",
+    "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
+    "Norme sul Licenziamento": "Quali sono le basi legali per il licenziamento?",
+    "Sicurezza sul Lavoro": "Riassumi le responsabilità del datore di lavoro per la sicurezza sul lavoro."
+}
 
-    # Display the response in the main area if a query is selected
+for key, value in query_texts.items():
+    if st.button(value):
+        st.session_state.selected_query = value
 
-    if "messages" not in st.session_state.keys(): # Initialize the chat messages history
-        st.session_state.messages = [
-            {"role": "assistant", "content": "Ciao, come posso esserti utile?"}
-        ]
-    client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
-    vector_store_4 = QdrantVectorStore(client=client, collection_name=selection)
-    index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
+# Display the response in the main area if a query is selected
 
-    print(index)
+if "messages" not in st.session_state.keys(): # Initialize the chat messages history
+    st.session_state.messages = [
+        {"role": "assistant", "content": "Ciao, come posso esserti utile?"}
+    ]
+client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
+vector_store_4 = QdrantVectorStore(client=client, collection_name=selection)
+index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
 
-
-
-    if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
-            st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
-
-    print(st.session_state.selected_query)
+print(index)
 
 
-    prompt=st.chat_input("Fai una domanda")
-    #se seleziono il prompt dai buttons lo sovracrivo
-    if st.session_state.selected_query != None:
-        prompt=st.session_state.selected_query
-        st.session_state.selected_query = None
 
-    if prompt: # Prompt for user input and save to chat history
-        st.session_state.messages.append({"role": "user", "content":  prompt})
-        st.session_state_selected_query=None
+if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
+        st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
 
-    for message in st.session_state.messages: # Display the prior chat messages
-        with st.chat_message(message["role"]):
-            st.write(message["content"])
+print(st.session_state.selected_query)
 
-    if st.session_state.messages[-1]["role"] != "assistant":
-        with st.chat_message("assistant"):
-            with st.spinner("Thinking..."):
-                response = st.session_state.chat_engine.chat(context+prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
-                st.write(response.response)
-                message = {"role": "assistant", "content": response.response}
-                st.session_state.messages.append(message) # Add response to message history
+
+prompt=st.chat_input("Fai una domanda")
+#se seleziono il prompt dai buttons lo sovracrivo
+if st.session_state.selected_query != None:
+    prompt=st.session_state.selected_query
+    st.session_state.selected_query = None
+
+if prompt: # Prompt for user input and save to chat history
+    st.session_state.messages.append({"role": "user", "content":  prompt})
+    st.session_state_selected_query=None
+
+for message in st.session_state.messages: # Display the prior chat messages
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
+
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking..."):
+            response = st.session_state.chat_engine.chat(context+prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
+            st.write(response.response)
+            message = {"role": "assistant", "content": response.response}
+            st.session_state.messages.append(message) # Add response to message history
 
 
 
