@@ -51,7 +51,7 @@ query_texts = {
 }
 
 for key, value in query_texts.items():
-    if st.button(key):
+    if st.button(value):
         st.session_state.selected_query = value
 
 # Display the response in the main area if a query is selected
