@@ -114,8 +114,8 @@ if st.session_state.messages[-1]["role"] != "assistant":
         with st.spinner("Thinking..."):
             #response = st.session_state.chat_engine.chat(context+prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
             response = st.session_state.chat_engine.chat(prompt)
-            st.write(response.response)
-            message = {"role": "assistant", "content": response.response}
+            st.write(response)
+            message = {"role": "assistant", "content": response}
             st.session_state.messages.append(message) # Add response to message history
 
 
