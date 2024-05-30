@@ -119,9 +119,10 @@ if st.session_state.messages[-1]["role"] != "assistant":
 
 
 
-with st.container(height=800):
-    with col2:
-    # If last message is not from assistant, generate a new response
+
+with col2:
+    with st.container(height=800):
+# If last message is not from assistant, generate a new response
         def reset_conversation():
             # Reset chat history and any other relevant state variables
             st.session_state.chat_history = []
