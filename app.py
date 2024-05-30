@@ -88,40 +88,41 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 print(st.session_state.selected_query)
 
 # qui cerco di 
+col1, col2 = st.columns([5,1])
 
-prompt=st.chat_input("Fai una domanda")
-#se seleziono il prompt dai buttons lo sovracrivo
-if st.session_state.selected_query != None:
-  prompt=st.session_state.selected_query
-  st.session_state.selected_query = None
+with col1:
+    prompt=st.chat_input("Fai una domanda")
+    #se seleziono il prompt dai buttons lo sovracrivo
+    if st.session_state.selected_query != None:
+        prompt=st.session_state.selected_query
+        st.session_state.selected_query = None
 
-if prompt: # Prompt for user input and save to chat history
-    st.session_state.messages.append({"role": "user", "content":  prompt})
-    st.session_state_selected_query=None
+    if prompt: # Prompt for user input and save to chat history
+        st.session_state.messages.append({"role": "user", "content":  prompt})
+        st.session_state_selected_query=None
 
-for message in st.session_state.messages: # Display the prior chat messages
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
+    for message in st.session_state.messages: # Display the prior chat messages
+        with st.chat_message(message["role"]):
+            st.write(message["content"])
 
-if st.session_state.messages[-1]["role"] != "assistant":
-    with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
-            response = st.session_state.chat_engine.chat(context+prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
-            st.write(response.response)
-            message = {"role": "assistant", "content": response.response}
-            st.session_state.messages.append(message) # Add response to message history
-
-
-
-
+    if st.session_state.messages[-1]["role"] != "assistant":
+        with st.chat_message("assistant"):
+            with st.spinner("Thinking..."):
+                response = st.session_state.chat_engine.chat(context+prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
+                st.write(response.response)
+                message = {"role": "assistant", "content": response.response}
+                st.session_state.messages.append(message) # Add response to message history
 
 
+
+
+with col2:
 # If last message is not from assistant, generate a new response
-def reset_conversation():
-    # Reset chat history and any other relevant state variables
-    st.session_state.chat_history = []
-    st.session_state.chat_engine.chat_history.clear()
-    # Clear the screen by rerunning the app
-    st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
+    def reset_conversation():
+        # Reset chat history and any other relevant state variables
+        st.session_state.chat_history = []
+        st.session_state.chat_engine.chat_history.clear()
+        # Clear the screen by rerunning the app
+        st.session_state.messages=[{"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}]
 
-st.button('Reset Chat', on_click=reset_conversation)
+    st.button('Reset Chat', on_click=reset_conversation)
