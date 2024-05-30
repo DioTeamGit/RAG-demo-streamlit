@@ -79,7 +79,7 @@ with col1:
 
     if "messages" not in st.session_state.keys(): # Initialize the chat messages history
         st.session_state.messages = [
-            {"role": "assistant", "content": "Inizia una chat con i tuoi documenti!"}
+            {"role": "assistant", "content": "Ciao, come posso esserti utile?"}
         ]
     client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
     vector_store_4 = QdrantVectorStore(client=client, collection_name=selection)
