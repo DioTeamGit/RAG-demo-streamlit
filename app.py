@@ -66,7 +66,7 @@ index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
 
 print(index)
 
-col1, col2 = st.columns([5, 1])
+
 
 if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
         st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
@@ -75,18 +75,16 @@ print(st.session_state.selected_query)
 
 prompt=""
 
-
-  
 if prompt!="": # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
     st.session_state_selected_query=None
-
+    
+col1, col2 = st.columns([5, 1])
 col1.chat_input("Fai una domanda")
 
 if st.session_state.selected_query != None:
   prompt=st.session_state.selected_query
   
-
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
         st.write(message["content"])
