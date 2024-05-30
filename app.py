@@ -36,9 +36,9 @@ selection = st.sidebar.selectbox(
 
 # Settings
 
-#Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
+Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
 
-#Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
+Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
 
 # Formato
 format = st.sidebar.radio("Seleziona formato della risposta", options=['Formato Libero','E-mail', 'Paragrafo', 'Lista'])
@@ -112,11 +112,10 @@ for message in st.session_state.messages: # Display the prior chat messages
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Sto elaborando una risposta..."):
-            #response = st.session_state.chat_engine.chat(context+prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
-            response = st.session_state.chat_engine.chat(prompt)
-            st.write(response.sources[0].content)
-            st.write(st.session_state.chat_engine)
-            message = {"role": "assistant", "content": response.sources[0].content}
+            response = st.session_state.chat_engine.chat(context+prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
+            #response = st.session_state.chat_engine.chat(prompt)
+            fonti = set([response.source_nodes[i].node.metadata["file_name"] for i in range(0,len(response.source_nodes))])
+            message = {"role": "assistant", "content": response.response + "Fonti: \n" + fonti}
             st.session_state.messages.append(message) # Add response to message history
 
 
