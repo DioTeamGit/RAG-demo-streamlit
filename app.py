@@ -78,7 +78,7 @@ col1.chat_input("Fai una domanda")
 if st.session_state.selected_query != None:
   prompt=st.session_state.selected_query
 else:
-  prompt=st.col1.chat_input("Fai una domanda")
+  prompt=col1.chat_input("Fai una domanda")
   
 if prompt: # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
