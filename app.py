@@ -94,11 +94,11 @@ prompt=st.chat_input("Fai una domanda")
 #se seleziono il prompt dai buttons lo sovracrivo
 if st.session_state.selected_query != None:
   prompt=st.session_state.selected_query
+  st.session_state.selected_query = None
 
 if prompt: # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
     st.session_state_selected_query=None
-    prompt = None
 
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
