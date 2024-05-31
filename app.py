@@ -26,12 +26,12 @@ context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione.
          
 st.sidebar.title("Personalizza le risposte")
 selection = st.sidebar.multiselect(
-    "Seleziona una collezione di documenti:",
-    ['RAG_4', 'ai_act&data_governance_act']
+    "Seleziona una o più collezioni di documenti:",
+    ['CCNL e Sentenze cassazione', 'AI ACT e Data Governance Act']
 )
 
 # temperatura
-temperature = st.sidebar.slider("Seleziona la creatività della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01, help= "La temperatura in un LLM regola la probabilità di scegliere parole o frasi durante la generazione di testo. Un valore di temperatura più alto rende il modello più propenso a fare scelte inaspettate o meno probabili, rendendo il testo più vario e talvolta più creativo. Al contrario, una temperatura bassa porta il modello a scegliere opzioni più sicure e prevedibili, risultando in risposte più coerenti e meno sorprendenti.")
+temperature = st.sidebar.slider("Seleziona la temperatura della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01, help= "La temperatura in un LLM regola la probabilità di scegliere parole o frasi durante la generazione di testo. Un valore di temperatura più alto rende il modello più propenso a fare scelte inaspettate o meno probabili, rendendo il testo più vario e talvolta più creativo. Al contrario, una temperatura bassa porta il modello a scegliere opzioni più sicure e prevedibili, risultando in risposte più coerenti e meno sorprendenti.")
 
 
 # Settings
