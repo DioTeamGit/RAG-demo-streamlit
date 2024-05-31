@@ -71,8 +71,7 @@ st.write("Scegli un prompt")
 #    "Sicurezza sul Lavoro": "Riassumi le responsabilità del datore di lavoro per la sicurezza sul lavoro."
 #}
 
-query_texts = 
-  {
+query_texts = {
     "Parere legale sul licenziamento del dipendente": "Redigi un parere legale in merito alla legittimità del licenziamento disciplinare di un dipendente che ha violato il regolamento aziendale, includendo le prove necessarie e le procedure che l'azienda deve seguire in caso di impugnazione del provvedimento.",
     "Parere legale sul trattamento della maternità/paternità": "Redigi un parere legale sui diritti dei lavoratori durante il periodo di maternità o paternità, analizzando le disposizioni normative relative ai congedi, alla retribuzione e al mantenimento della posizione lavorativa.",
     "Parere legale sulla discriminazione sul lavoro": "Scrivi un parere legale in merito a un caso di presunta discriminazione sul lavoro basata su genere, includendo l'analisi delle normative vigenti e applicabili e le possibili azioni legali che il dipendente può intraprendere.",
