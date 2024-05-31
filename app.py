@@ -129,8 +129,9 @@ if st.session_state.messages[-1]["role"] != "assistant":
                 messaggio = response.response + "\nFonti:" + str(sources)
                 message = {"role": "assistant", "content": messaggio}
             else:
+                messaggio = response.response
                 message = {"role": "assistant", "content": response.response}
-            st.write(message)
+            st.write(messaggio)
             st.session_state.messages.append(message) # Add response to message history
 
 
