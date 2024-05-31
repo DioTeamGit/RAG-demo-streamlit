@@ -79,7 +79,7 @@ query_texts =
     "Parere legale sugli straordinari non pagati": "Redigi un parere legale relativo a una situazione in cui un dipendente non ha ricevuto il pagamento per gli straordinari effettuati, esaminando le disposizioni normative e le possibili sanzioni per il datore di lavoro.",
     "Parere legale sulla privacy dei dipendenti": "Redigi un parere legale sui limiti del controllo dei dipendenti da parte del datore di lavoro, analizzando le normative sulla privacy, la normativa relativa all’utilizzo di sistemi di sorveglianza e il monitoraggio delle comunicazioni elettroniche relative all’ambiente di lavoro.",
     "Parere legale sul diritto di sciopero": "Scrivi un parere legale riguardante il diritto di sciopero dei lavoratori, includendo le procedure legali per indire uno sciopero, le tutele per i lavoratori che vi aderiscono e non e le possibili azioni legali del datore di lavoro in risposta allo sciopero."
-]
+  }
 
 
 for key, value in query_texts.items():
