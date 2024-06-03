@@ -66,7 +66,7 @@ this_year = today.year
 jan_1 = datetime.date(this_year, 1, 1)
 dec_31 = datetime.date(this_year, 12, 31)
 
-d = st.date_input(
+d = st.sidebar.date_input(
     "Seleziona l'intervallo di date in cui vuoi fare ricerca",
     (jan_1, datetime.date(next_year, 1, 7)),
     jan_1,
