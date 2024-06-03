@@ -73,7 +73,6 @@ d = st.sidebar.date_input(
     dec_31,
     format="MM.DD.YYYY",
 )
-d
 
 st.write("Scegli un prompt")
 #query_texts = {
