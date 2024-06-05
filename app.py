@@ -38,7 +38,7 @@ temperature = st.sidebar.slider("Seleziona la temperatura della risposta", min_v
 
 Settings.embed_model = OpenAIEmbedding(model="text-embedding-ada-002")  
 
-Settings.llm = OpenAI(model="gpt-4o", temperature=temperature)
+Settings.llm = OpenAI(model="gpt-4")
 
 # Formato
 format = st.sidebar.radio("Seleziona formato della risposta", options=['Formato Libero','E-mail', 'Paragrafo', 'Lista'])
