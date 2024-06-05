@@ -36,7 +36,7 @@ temperature = st.sidebar.slider("Seleziona la temperatura della risposta", min_v
 
 # Settings
 
-Settings.embed_model = OpenAIEmbedding(model="text-embedding-ada-002")  
+Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")  
 
 Settings.llm = OpenAI(model="gpt-4o")
 
