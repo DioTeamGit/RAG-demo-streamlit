@@ -118,7 +118,10 @@ if prompt: # Prompt for user input and save to chat history
 for message in st.session_state.messages: # Display the prior chat messages
     with st.chat_message(message["role"]):
         st.write(message["content"])
+import logging
+import sys
 
+logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Sto elaborando una risposta..."):
