@@ -125,7 +125,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Sto elaborando una risposta..."):
-            response = st.session_state.chat_engine.chat(prompt+"\n Utilizza come formato:"+ format , tool_choice="query_engine_tool") #query engine tool forza la ricerca
+            response = st.session_state.chat_engine.chat(prompt, tool_choice="query_engine_tool") #query engine tool forza la ricerca
             #response = st.session_state.chat_engine.chat(prompt)
             sources = set([response.source_nodes[i].node.metadata["file_name"] for i in range(0,len(response.source_nodes))])
             if fonti:
