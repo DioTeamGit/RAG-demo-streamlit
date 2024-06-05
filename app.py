@@ -134,6 +134,7 @@ if st.session_state.messages[-1]["role"] != "assistant":
             st.write(messaggio)
             st.write(response)
             st.write(response.source_nodes)
+            st.write(response.sources)
             st.session_state.messages.append(message) # Add response to message history
 
 
