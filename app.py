@@ -135,9 +135,9 @@ if st.session_state.messages[-1]["role"] != "assistant":
                 messaggio = response.response
                 message = {"role": "assistant", "content": response.response}
             st.write(messaggio)
-            st.write(response)
-            st.write(response.source_nodes)
-            st.write(response.source_nodes[0].text)
+            #st.write(response)
+            #st.write(response.source_nodes)
+            st.write("Il testo da cui ho preso le informazioni è:" + response.source_nodes[0].text)
             st.session_state.messages.append(message) # Add response to message history
 
 
