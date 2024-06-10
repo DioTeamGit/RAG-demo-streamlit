@@ -123,7 +123,7 @@ query_texts_dgai = {
 
 query_texts_dict = {"FISGR":query_texts_fisgr, "RAG_4":query_texts_ccnl_cass, "ai_act&data_governance_act":query_texts_dgai}
 
-query_texts= query_texts_dict
+query_texts= query_texts_dict[selection]
 for key, value in query_texts.items():
     if st.button(key):
         st.session_state.selected_query = value
