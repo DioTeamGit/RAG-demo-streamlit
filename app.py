@@ -82,10 +82,6 @@ fonti = st.sidebar.toggle("Cita le fonti")
 # qui cerco di 
 
 
-# Prompt preesitenti
-
-if 'selected_query' not in st.session_state:
-    st.session_state.selected_query = None
 
 # Legal query buttons in Italian
 
@@ -136,12 +132,7 @@ for message in st.session_state.messages:
   with st.chat_message(message["role"]):
       st.markdown(message["content"])
 
-# Chat input for the user
-if prompt := st.chat_input("Fai una domanda"):
-# Add user message to the state and display it
-  st.session_state.messages.append({"role": "user", "content": prompt})
-  with st.chat_message("user"):
-      st.markdown(prompt)
+
 
 # Add the user's message to the existing thread
 client.beta.threads.messages.create(
