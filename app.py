@@ -175,8 +175,8 @@ if prompt: # Prompt for user input and save to chat history
     st.session_state_selected_query=None
 
 for message in st.session_state.messages:
-  with st.chat_message(message["role"]):
-    st.write(message["content"])
+    with st.chat_message(message["role"]):
+      st.write(message["content"])
 
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
