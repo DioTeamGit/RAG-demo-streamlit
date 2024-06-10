@@ -8,3 +8,6 @@ docx2txt
 qdrant_client
 llama-index-vector-stores-qdrant
 fastembed
+requests
+beautifulsoup4
+pdfkit
