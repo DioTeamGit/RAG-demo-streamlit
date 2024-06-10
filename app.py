@@ -31,7 +31,7 @@ col1.title("Iniziamo!")
 context = "Sei un esperto in procedure aziendali. Devi usare sempre il manuale delle procedure per rispondere alle domande che ti vengono fatte"
          
 st.sidebar.title("Personalizza le risposte")
-selection = st.sidebar.select(
+selection = st.sidebar.selectbox(
     "Seleziona una collezione di documenti:",
     ['CCNL e Sentenze cassazione', 
      'AI ACT e Data Governance Act', 
