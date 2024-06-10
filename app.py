@@ -21,12 +21,14 @@ client = openai
 # Set your OpenAI Assistant ID here
 assistant_id = 'asst_dy1sG6anYf0hvZzE7HFf4OcL'
 thread = client.beta.threads.create()
-st.session_state.thread_id = thread.id
-st.write("thread id: ", thread.id)
+
+#st.write("thread id: ", thread.id)
 
 
 
 st.set_page_config(page_title="Iniziamo!", page_icon=":speech_balloon:", layout="centered", initial_sidebar_state="auto", menu_items=None)
+
+st.session_state.thread_id = thread.id
 openai.api_key = st.secrets.openai_key_p
 
 
