@@ -88,16 +88,16 @@ d = st.sidebar.date_input(
 )
 
 st.write("Scegli un prompt")
-#query_texts = {
-#    "Termini del Contratto": "Spiega le considerazioni chiave per il seguente contratto nazionale",
-#    "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
-#    "Norme sul Licenziamento": "Riporta parola per parola ",
-#    "Sicurezza sul Lavoro": "Riassumi le responsabilità del datore di lavoro per la sicurezza sul lavoro."
-#}
+query_texts_ccnl = {
+    "Termini del CCNL Sanità": "Spiega le considerazioni chiave per il seguente contratto nazionale sanità",
+    "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
+    "Minimi tabellari ccnl commercio": "Riporta i minimi tabellari del CCNL commercio ",
+    "Come procedere in caso di diffamazione": "Cosa devo sapere per un processo di diffamazione di un'azienda "
+}
 
 # da scegliere in base a interlocutore
 
-query_texts = {
+query_texts_mic = {
     "Parere legale sul licenziamento del dipendente": "Redigi un parere legale in merito alla legittimità del licenziamento disciplinare di un dipendente che ha violato il regolamento aziendale, includendo le prove necessarie e le procedure che l'azienda deve seguire in caso di impugnazione del provvedimento.",
     "Parere legale sul trattamento della maternità/paternità": "Redigi un parere legale sui diritti dei lavoratori durante il periodo di maternità o paternità, analizzando le disposizioni normative relative ai congedi, alla retribuzione e al mantenimento della posizione lavorativa.",
     "Parere legale sulla discriminazione sul lavoro": "Scrivi un parere legale in merito a un caso di presunta discriminazione sul lavoro basata su genere, includendo l'analisi delle normative vigenti e applicabili e le possibili azioni legali che il dipendente può intraprendere.",
@@ -106,13 +106,14 @@ query_texts = {
     "Parere legale sul diritto di sciopero": "Scrivi un parere legale riguardante il diritto di sciopero dei lavoratori, includendo le procedure legali per indire uno sciopero, le tutele per i lavoratori che vi aderiscono e non e le possibili azioni legali del datore di lavoro in risposta allo sciopero."
   }
 
-#query_texts = {"Controllo interno e funzioni specifiche": "Come viene gestito il controllo interno e quali sono le funzioni specifiche di Risk Management e Compliance?",
-#    "Selezione e monitoraggio outsourcer": "Quali sono i passaggi principali nella procedura di selezione e monitoraggio degli outsourcer di funzioni essenziali come descritto nel documento?",
-#    "Procedura gestione rischi operativi": "Spiega le procedure adottate per la gestione e la valutazione dei rischi operativi come delineato nel Manuale.",
-#    "Monitoraggio e revisione del Budget": "Descrivi il processo di monitoraggio e revisione del Budget annuale della Società.",
-#    "Gestione del personale": "Quali sono le linee guida e le responsabilità specificate per la gestione del personale, inclusi assunzioni e formazioni?"
-#}
+query_texts_fisgr = {"Controllo interno e funzioni specifiche": "Come viene gestito il controllo interno e quali sono le funzioni specifiche di Risk Management e Compliance?",
+    "Selezione e monitoraggio outsourcer": "Quali sono i passaggi principali nella procedura di selezione e monitoraggio degli outsourcer di funzioni essenziali come descritto nel documento?",
+    "Procedura gestione rischi operativi": "Spiega le procedure adottate per la gestione e la valutazione dei rischi operativi come delineato nel Manuale.",
+    "Monitoraggio e revisione del Budget": "Descrivi il processo di monitoraggio e revisione del Budget annuale della Società.",
+    "Gestione del personale": "Quali sono le linee guida e le responsabilità specificate per la gestione del personale, inclusi assunzioni e formazioni?"
+}
 
+query_texts= query_texts_ccnl
 for key, value in query_texts.items():
     if st.button(key):
         st.session_state.selected_query = value
