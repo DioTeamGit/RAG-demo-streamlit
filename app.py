@@ -31,9 +31,12 @@ col1.title("Iniziamo!")
 context = "Sei un esperto in procedure aziendali. Devi usare sempre il manuale delle procedure per rispondere alle domande che ti vengono fatte"
          
 st.sidebar.title("Personalizza le risposte")
-selection = st.sidebar.multiselect(
-    "Seleziona una o più collezioni di documenti:",
-    ['CCNL e Sentenze cassazione', 'AI ACT e Data Governance Act', 'FISGR']
+selection = st.sidebar.select(
+    "Seleziona una collezione di documenti:",
+    ['CCNL e Sentenze cassazione', 
+     'AI ACT e Data Governance Act', 
+    # 'FISGR'
+    ]
 )
 
 # temperatura
@@ -90,21 +93,21 @@ st.write("Scegli un prompt")
 
 # da scegliere in base a interlocutore
 
-#query_texts = {
-#    "Parere legale sul licenziamento del dipendente": "Redigi un parere legale in merito alla legittimità del licenziamento disciplinare di un dipendente che ha violato il regolamento aziendale, includendo le prove necessarie e le procedure che l'azienda deve seguire in caso di impugnazione del provvedimento.",
-#    "Parere legale sul trattamento della maternità/paternità": "Redigi un parere legale sui diritti dei lavoratori durante il periodo di maternità o paternità, analizzando le disposizioni normative relative ai congedi, alla retribuzione e al mantenimento della posizione lavorativa.",
-#    "Parere legale sulla discriminazione sul lavoro": "Scrivi un parere legale in merito a un caso di presunta discriminazione sul lavoro basata su genere, includendo l'analisi delle normative vigenti e applicabili e le possibili azioni legali che il dipendente può intraprendere.",
-#    "Parere legale sugli straordinari non pagati": "Redigi un parere legale relativo a una situazione in cui un dipendente non ha ricevuto il pagamento per gli straordinari effettuati, esaminando le disposizioni normative e le possibili sanzioni per il datore di lavoro.",
-#    "Parere legale sulla privacy dei dipendenti": "Redigi un parere legale sui limiti del controllo dei dipendenti da parte del datore di lavoro, analizzando le normative sulla privacy, la normativa relativa all’utilizzo di sistemi di sorveglianza e il monitoraggio delle comunicazioni elettroniche relative all’ambiente di lavoro.",
-#    "Parere legale sul diritto di sciopero": "Scrivi un parere legale riguardante il diritto di sciopero dei lavoratori, includendo le procedure legali per indire uno sciopero, le tutele per i lavoratori che vi aderiscono e non e le possibili azioni legali del datore di lavoro in risposta allo sciopero."
-#  }
+query_texts = {
+    "Parere legale sul licenziamento del dipendente": "Redigi un parere legale in merito alla legittimità del licenziamento disciplinare di un dipendente che ha violato il regolamento aziendale, includendo le prove necessarie e le procedure che l'azienda deve seguire in caso di impugnazione del provvedimento.",
+    "Parere legale sul trattamento della maternità/paternità": "Redigi un parere legale sui diritti dei lavoratori durante il periodo di maternità o paternità, analizzando le disposizioni normative relative ai congedi, alla retribuzione e al mantenimento della posizione lavorativa.",
+    "Parere legale sulla discriminazione sul lavoro": "Scrivi un parere legale in merito a un caso di presunta discriminazione sul lavoro basata su genere, includendo l'analisi delle normative vigenti e applicabili e le possibili azioni legali che il dipendente può intraprendere.",
+    "Parere legale sugli straordinari non pagati": "Redigi un parere legale relativo a una situazione in cui un dipendente non ha ricevuto il pagamento per gli straordinari effettuati, esaminando le disposizioni normative e le possibili sanzioni per il datore di lavoro.",
+    "Parere legale sulla privacy dei dipendenti": "Redigi un parere legale sui limiti del controllo dei dipendenti da parte del datore di lavoro, analizzando le normative sulla privacy, la normativa relativa all’utilizzo di sistemi di sorveglianza e il monitoraggio delle comunicazioni elettroniche relative all’ambiente di lavoro.",
+    "Parere legale sul diritto di sciopero": "Scrivi un parere legale riguardante il diritto di sciopero dei lavoratori, includendo le procedure legali per indire uno sciopero, le tutele per i lavoratori che vi aderiscono e non e le possibili azioni legali del datore di lavoro in risposta allo sciopero."
+  }
 
-query_texts = {"Controllo interno e funzioni specifiche": "Come viene gestito il controllo interno e quali sono le funzioni specifiche di Risk Management e Compliance?",
-    "Selezione e monitoraggio outsourcer": "Quali sono i passaggi principali nella procedura di selezione e monitoraggio degli outsourcer di funzioni essenziali come descritto nel documento?",
-    "Procedura gestione rischi operativi": "Spiega le procedure adottate per la gestione e la valutazione dei rischi operativi come delineato nel Manuale.",
-    "Monitoraggio e revisione del Budget": "Descrivi il processo di monitoraggio e revisione del Budget annuale della Società.",
-    "Gestione del personale": "Quali sono le linee guida e le responsabilità specificate per la gestione del personale, inclusi assunzioni e formazioni?"
-}
+#query_texts = {"Controllo interno e funzioni specifiche": "Come viene gestito il controllo interno e quali sono le funzioni specifiche di Risk Management e Compliance?",
+#    "Selezione e monitoraggio outsourcer": "Quali sono i passaggi principali nella procedura di selezione e monitoraggio degli outsourcer di funzioni essenziali come descritto nel documento?",
+#    "Procedura gestione rischi operativi": "Spiega le procedure adottate per la gestione e la valutazione dei rischi operativi come delineato nel Manuale.",
+#    "Monitoraggio e revisione del Budget": "Descrivi il processo di monitoraggio e revisione del Budget annuale della Società.",
+#    "Gestione del personale": "Quali sono le linee guida e le responsabilità specificate per la gestione del personale, inclusi assunzioni e formazioni?"
+#}
 
 for key, value in query_texts.items():
     if st.button(key):
@@ -117,7 +120,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Ciao, come posso esserti utile?"}
     ]
 client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
-vector_store_4 = QdrantVectorStore(client=client, collection_name="FISGR")
+vector_store_4 = QdrantVectorStore(client=client, collection_name=selection)
 index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
 
 print(index)
