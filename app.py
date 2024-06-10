@@ -19,7 +19,9 @@ import time
 
 # Set your OpenAI Assistant ID here
 assistant_id = 'asst_dy1sG6anYf0hvZzE7HFf4OcL'
-
+thread = client.beta.threads.create()
+st.session_state.thread_id = thread.id
+st.write("thread id: ", thread.id)
 
 
 
