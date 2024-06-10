@@ -171,27 +171,6 @@ if prompt: # Prompt for user input and save to chat history
 
 # Add the user's message to the existing thread
 
-for message in st.session_state.messages: # Display the prior chat messages
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
-
-
-# Create a run with additional instructions
-
-
-# Poll for the run to complete and retrieve the assistant's messages
-
-# Process and display assistant messages
-assistant_messages_for_run = [
-    message for message in messages 
-    if message.run_id == run.id and message.role == "assistant"
-]
-for message in assistant_messages_for_run:
-    full_response = process_message_with_citations(message)
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
-    with st.chat_message("assistant"):
-        st.markdown(full_response, unsafe_allow_html=True)
-
 if st.session_state.messages[-1]["role"] != "assistant":
     with st.chat_message("assistant"):
         with st.spinner("Sto elaborando una risposta..."):
