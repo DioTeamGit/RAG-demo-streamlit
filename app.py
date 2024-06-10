@@ -121,6 +121,7 @@ prompt=st.chat_input("Fai una domanda")
 if st.session_state.selected_query != None:
     prompt=st.session_state.selected_query
     st.session_state.selected_query = None
+    st.write(st.session_state.selected_query)
 
 if "openai_model" not in st.session_state:
         st.session_state.openai_model = "gpt-4o"
