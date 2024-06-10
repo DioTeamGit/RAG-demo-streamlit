@@ -36,7 +36,7 @@ selection = st.sidebar.selectbox(
     ['CCNL e Sentenze cassazione', 
      'AI ACT e Data Governance Act', 
     # 'FISGR'
-    ]
+    ], index= None,
 )
 
 selection_dict = { 'CCNL e Sentenze cassazione':"RAG_4",
