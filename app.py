@@ -92,6 +92,7 @@ query_texts_ccnl_cass = {
     "Termini del CCNL Sanità": "Spiega le considerazioni chiave per il seguente contratto nazionale sanità",
     "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
     "Minimi tabellari ccnl commercio": "Riporta i minimi tabellari del CCNL commercio ",
+    "Implicazioni legali contenuti denigratori":"Quali sono le implicazioni legali per un dipendente che pubblica contenuti denigratori su Facebook nei confronti del proprio datore di lavoro?"
     "Bilanciamento libertà di espressione dipendente e responsabilità": "Qual è il bilanciamento tra la libertà di espressione del dipendente e le responsabilità verso il datore di lavoro in un contesto lavorativo?"
 }
 
