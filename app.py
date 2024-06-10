@@ -130,8 +130,8 @@ if st.session_state.selected_query != None:
     st.session_state.selected_query = None
 
 if "openai_model" not in st.session_state:
-        st.session_state.openai_model = "gpt-4-1106-preview"
-    if "messages" not in st.session_state:
+        st.session_state.openai_model = "gpt-4o"
+if "messages" not in st.session_state:
         st.session_state.messages = []
 
 # Display existing messages in the chat
