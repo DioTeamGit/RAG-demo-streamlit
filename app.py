@@ -88,11 +88,11 @@ d = st.sidebar.date_input(
 )
 
 st.write("Scegli un prompt")
-query_texts_ccnl = {
+query_texts_ccnl_cass = {
     "Termini del CCNL Sanità": "Spiega le considerazioni chiave per il seguente contratto nazionale sanità",
     "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
     "Minimi tabellari ccnl commercio": "Riporta i minimi tabellari del CCNL commercio ",
-    "Come procedere in caso di diffamazione": "Cosa devo sapere per un processo di diffamazione di un'azienda "
+    "Bilanciamento libertà di espressione dipendente e responsabilità": "Qual è il bilanciamento tra la libertà di espressione del dipendente e le responsabilità verso il datore di lavoro in un contesto lavorativo?"
 }
 
 # da scegliere in base a interlocutore
@@ -113,7 +113,17 @@ query_texts_fisgr = {"Controllo interno e funzioni specifiche": "Come viene gest
     "Gestione del personale": "Quali sono le linee guida e le responsabilità specificate per la gestione del personale, inclusi assunzioni e formazioni?"
 }
 
-query_texts= query_texts_ccnl
+query_texts_dgai = {
+    "Panoramica AI Act": "Scrivi un articolo approfondito che fornisca una panoramica del AI Act dell'Unione Europea. Includi gli obiettivi principali, le disposizioni maggiori e i potenziali impatti su imprese e consumatori. Discuti come classifica i sistemi di IA in base al rischio e i requisiti di conformità per i sistemi di IA ad alto rischio.",
+    "Spiegazione Data Governance Act": "Spiega lo scopo e i componenti chiave del Data Governance Act. Descrivi come mira a migliorare la condivisione dei dati attraverso l'UE, le sue disposizioni per l'altruismo dei dati e l'istituzione di un quadro di governance dei dati. Dettaglia i ruoli e le responsabilità degli intermediari dei dati.",
+    "Confronto tra AI Act e GDPR": "Confronta e contrappone l'AI Act con il Regolamento Generale sulla Protezione dei Dati (GDPR). Concentrati sui loro approcci normativi, ambito di applicazione e i tipi di protezioni fornite da ciascuno. Discuti come le imprese operanti nell'UE dovranno adeguare le loro pratiche per conformarsi a entrambe le normative.",
+    "Impatto del Data Governance Act sul Settore Pubblico": "Analizza l'impatto del Data Governance Act sul settore pubblico. Discuti come promuove la condivisione dei dati del settore pubblico all'interno dell'UE, i benefici per l'amministrazione pubblica e i servizi, e le sfide e considerazioni nell'implementazione di queste disposizioni."
+}
+
+
+query_texts_dict = {"FISGR":query_texts_fisgr, "RAG_4":query_texts_ccnl_cass, "ai_act&data_governance_act":query_texts_dgai}
+
+query_texts= query_texts_dict
 for key, value in query_texts.items():
     if st.button(key):
         st.session_state.selected_query = value
