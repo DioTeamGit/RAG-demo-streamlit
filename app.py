@@ -169,9 +169,6 @@ if prompt: # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
     st.session_state_selected_query=None
 
-  for message in st.session_state.messages: # Display the prior chat messages
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
 # Add the user's message to the existing thread
     assistant_messages_for_run = [
         message for message in messages 
