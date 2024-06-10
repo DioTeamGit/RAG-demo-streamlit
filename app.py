@@ -170,21 +170,15 @@ if prompt: # Prompt for user input and save to chat history
     st.session_state_selected_query=None
 
 # Add the user's message to the existing thread
-
-if st.session_state.messages[-1]["role"] != "assistant":
-    with st.chat_message("assistant"):
-        with st.spinner("Sto elaborando una risposta..."):
-            response = process_message_with_citations(message)
-            #response = st.session_state.chat_engine.chat(prompt)
-            #sources = set([response.source_nodes[i].node.metadata["file_name"] for i in range(0,len(response.source_nodes))])
-            if fonti:
-                messaggio = response + "\nFonti:" #+ str(sources)
-                message = {"role": "assistant", "content": messaggio}
-            else:
-                messaggio = response
-                message = {"role": "assistant", "content": response}
-            st.write(messaggio)
-            st.session_state.messages.append(message) # Add response to message history
+    assistant_messages_for_run = [
+        message for message in messages 
+        if message.run_id == run.id and message.role == "assistant"
+    ]
+    for message in assistant_messages_for_run:
+        full_response = process_message_with_citations(message)
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
+        with st.chat_message("assistant"):
+            st.markdown(full_response, unsafe_allow_html=True)
 
 with col2:
 # If last message is not from assistant, generate a new response
