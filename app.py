@@ -142,34 +142,42 @@ for message in st.session_state.messages:
   with st.chat_message(message["role"]):
       st.markdown(message["content"])
 
-
-
-# Add the user's message to the existing thread
-client.beta.threads.messages.create(
+if prompt: # Prompt for user input and save to chat history
+  
+    client.beta.threads.messages.create(
     thread_id=st.session_state.thread_id,
     role="user",
     content=prompt
-)
-
-# Create a run with additional instructions
-run = client.beta.threads.runs.create(
+    )
+    run = client.beta.threads.runs.create(
     thread_id=st.session_state.thread_id,
     assistant_id=assistant_id,
-    instructions="Please answer the queries using the knowledge provided in the files.When adding other information mark it clearly as such.with a different color"
-)
-
-# Poll for the run to complete and retrieve the assistant's messages
-while run.status != 'completed':
+    instructions="Per favore, rispondi alle domande utilizzando le informazioni fornite nei file. Quando aggiungi altre informazioni, segnale chiaramente come tali, con un colore diverso.")
+    while run.status != 'completed':
     time.sleep(1)
     run = client.beta.threads.runs.retrieve(
         thread_id=st.session_state.thread_id,
         run_id=run.id
     )
 
-# Retrieve messages added by the assistant
-messages = client.beta.threads.messages.list(
-    thread_id=st.session_state.thread_id
-)
+    # Retrieve messages added by the assistant
+    messages = client.beta.threads.messages.list(
+        thread_id=st.session_state.thread_id
+    )
+
+    
+    st.session_state.messages.append({"role": "user", "content":  prompt})
+    st.session_state_selected_query=None
+
+# Add the user's message to the existing thread
+
+
+
+
+# Create a run with additional instructions
+
+
+# Poll for the run to complete and retrieve the assistant's messages
 
 # Process and display assistant messages
 assistant_messages_for_run = [
