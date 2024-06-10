@@ -17,6 +17,7 @@ import requests
 import pdfkit
 import time
 
+client = openai
 # Set your OpenAI Assistant ID here
 assistant_id = 'asst_dy1sG6anYf0hvZzE7HFf4OcL'
 thread = client.beta.threads.create()
@@ -28,7 +29,7 @@ st.write("thread id: ", thread.id)
 st.set_page_config(page_title="Iniziamo!", page_icon=":speech_balloon:", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key_p
 
-client = openai
+
 
 def process_message_with_citations(message):
     """Extract content and annotations from the message and format citations as footnotes."""
