@@ -26,9 +26,9 @@ col1.title("Iniziamo!")
 # context da selezionare in base alla demo che serve 
 
 
-# context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione.\n" # contesto
+context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione.\n" # contesto
 
-context = "Sei un esperto in procedure aziendali. Devi usare sempre il manuale delle procedure per rispondere alle domande che ti vengono fatte"
+#context = "Sei un esperto in procedure aziendali. Devi usare sempre il manuale delle procedure per rispondere alle domande che ti vengono fatte"
          
 st.sidebar.title("Personalizza le risposte")
 selection = st.sidebar.selectbox(
