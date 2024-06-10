@@ -10,14 +10,46 @@ except ImportError:
 from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core import Settings
+import openai
+import streamlit as st
+from bs4 import BeautifulSoup
+import requests
+import pdfkit
+import time
+
+# Set your OpenAI Assistant ID here
+assistant_id = 'asst_dy1sG6anYf0hvZzE7HFf4OcL'
 
 
 
 
-st.set_page_config(page_title="Iniziamo!", page_icon="⚖️", layout="centered", initial_sidebar_state="auto", menu_items=None)
+st.set_page_config(page_title="Iniziamo!", page_icon=":speech_balloon:", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key_p
 
+def process_message_with_citations(message):
+    """Extract content and annotations from the message and format citations as footnotes."""
+    message_content = message.content[0].text
+    annotations = message_content.annotations if hasattr(message_content, 'annotations') else []
+    citations = []
 
+    # Iterate over the annotations and add footnotes
+    for index, annotation in enumerate(annotations):
+        # Replace the text with a footnote
+        message_content.value = message_content.value.replace(annotation.text, f' [{index + 1}]')
+
+        # Gather citations based on annotation attributes
+        if (file_citation := getattr(annotation, 'file_citation', None)):
+            # Retrieve the cited file details (dummy response here since we can't call OpenAI)
+            cited_file = {'filename': 'cited_document.pdf'}  # This should be replaced with actual file retrieval
+            citations.append(f'[{index + 1}] {file_citation.quote} from {cited_file["filename"]}')
+        elif (file_path := getattr(annotation, 'file_path', None)):
+            # Placeholder for file download citation
+            cited_file = {'filename': 'downloaded_document.pdf'}  # This should be replaced with actual file retrieval
+            citations.append(f'[{index + 1}] Click [here](#) to download {cited_file["filename"]}')  # The download link should be replaced with the actual download path
+
+    # Add footnotes to the end of the message content
+    full_response = message_content.value + '\n\n' + '\n'.join(citations)
+    return full_response
 
 
 col1, col2 = st.columns([5,1])
@@ -25,10 +57,6 @@ col1.title("Iniziamo!")
 context= "Sei un avvocato. Devi usare sempre i documenti che hai a disposizione.\n" # contesto
          
 st.sidebar.title("Personalizza le risposte")
-selection = st.sidebar.multiselect(
-    "Seleziona una o più collezioni di documenti:",
-    ['CCNL e Sentenze cassazione', 'AI ACT e Data Governance Act']
-)
 
 # temperatura
 temperature = st.sidebar.slider("Seleziona la temperatura della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01, help= "La temperatura in un LLM regola la probabilità di scegliere parole o frasi durante la generazione di testo. Un valore di temperatura più alto rende il modello più propenso a fare scelte inaspettate o meno probabili, rendendo il testo più vario e talvolta più creativo. Al contrario, una temperatura bassa porta il modello a scegliere opzioni più sicure e prevedibili, risultando in risposte più coerenti e meno sorprendenti.")
@@ -36,7 +64,7 @@ temperature = st.sidebar.slider("Seleziona la temperatura della risposta", min_v
 
 # Settings
 
-Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-large")  
+#Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-large")  
 
 Settings.llm = OpenAI(model="gpt-4o")
 
@@ -91,11 +119,6 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
     st.session_state.messages = [
         {"role": "assistant", "content": "Ciao, come posso esserti utile?"}
     ]
-client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
-vector_store_4 = QdrantVectorStore(client=client, collection_name="RAG_4")
-index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
-
-print(index)
 
 
 
