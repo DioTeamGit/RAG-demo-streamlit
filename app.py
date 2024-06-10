@@ -120,11 +120,6 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Ciao, come posso esserti utile?"}
     ]
 
-
-
-if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
-        st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
-
 #st.write(st.session_state.chat_engine)
 
 
@@ -134,35 +129,60 @@ if st.session_state.selected_query != None:
     prompt=st.session_state.selected_query
     st.session_state.selected_query = None
 
-if prompt: # Prompt for user input and save to chat history
-    st.session_state.messages.append({"role": "user", "content":  prompt})
-    st.session_state_selected_query=None
+if "openai_model" not in st.session_state:
+        st.session_state.openai_model = "gpt-4-1106-preview"
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
 
-for message in st.session_state.messages: # Display the prior chat messages
-    with st.chat_message(message["role"]):
-        st.write(message["content"])
-import logging
-import sys
+# Display existing messages in the chat
+for message in st.session_state.messages:
+with st.chat_message(message["role"]):
+    st.markdown(message["content"])
 
-logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
-if st.session_state.messages[-1]["role"] != "assistant":
+# Chat input for the user
+if prompt := st.chat_input("Fai una domanda"):
+# Add user message to the state and display it
+  st.session_state.messages.append({"role": "user", "content": prompt})
+  with st.chat_message("user"):
+      st.markdown(prompt)
+
+# Add the user's message to the existing thread
+client.beta.threads.messages.create(
+    thread_id=st.session_state.thread_id,
+    role="user",
+    content=prompt
+)
+
+# Create a run with additional instructions
+run = client.beta.threads.runs.create(
+    thread_id=st.session_state.thread_id,
+    assistant_id=assistant_id,
+    instructions="Please answer the queries using the knowledge provided in the files.When adding other information mark it clearly as such.with a different color"
+)
+
+# Poll for the run to complete and retrieve the assistant's messages
+while run.status != 'completed':
+    time.sleep(1)
+    run = client.beta.threads.runs.retrieve(
+        thread_id=st.session_state.thread_id,
+        run_id=run.id
+    )
+
+# Retrieve messages added by the assistant
+messages = client.beta.threads.messages.list(
+    thread_id=st.session_state.thread_id
+)
+
+# Process and display assistant messages
+assistant_messages_for_run = [
+    message for message in messages 
+    if message.run_id == run.id and message.role == "assistant"
+]
+for message in assistant_messages_for_run:
+    full_response = process_message_with_citations(message)
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
     with st.chat_message("assistant"):
-        with st.spinner("Sto elaborando una risposta..."):
-            response = st.session_state.chat_engine.chat(prompt, tool_choice="query_engine_tool") #query engine tool forza la ricerca
-            #response = st.session_state.chat_engine.chat(prompt)
-            sources = set([response.source_nodes[i].node.metadata["file_name"] for i in range(0,len(response.source_nodes))])
-            if fonti:
-                messaggio = response.response + "\nFonti:" + str(sources)
-                message = {"role": "assistant", "content": messaggio}
-            else:
-                messaggio = response.response
-                message = {"role": "assistant", "content": response.response}
-            st.write(messaggio)
-            #st.write(response)
-            #st.write(response.source_nodes)
-            st.write("Il testo da cui ho preso le informazioni è:" + response.source_nodes[0].text)
-            st.session_state.messages.append(message) # Add response to message history
-
+        st.markdown(full_response, unsafe_allow_html=True)
 
 
 
