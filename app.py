@@ -26,6 +26,8 @@ assistant_id = 'asst_dy1sG6anYf0hvZzE7HFf4OcL'
 st.set_page_config(page_title="Iniziamo!", page_icon=":speech_balloon:", layout="centered", initial_sidebar_state="auto", menu_items=None)
 openai.api_key = st.secrets.openai_key_p
 
+client = openai
+
 def process_message_with_citations(message):
     """Extract content and annotations from the message and format citations as footnotes."""
     message_content = message.content[0].text
@@ -120,8 +122,9 @@ prompt=st.chat_input("Fai una domanda")
 #se seleziono il prompt dai buttons lo sovracrivo
 if st.session_state.selected_query != None:
     prompt=st.session_state.selected_query
-    st.session_state.selected_query = None
     st.write(st.session_state.selected_query)
+    st.session_state.selected_query = None
+
 
 if "openai_model" not in st.session_state:
         st.session_state.openai_model = "gpt-4o"
