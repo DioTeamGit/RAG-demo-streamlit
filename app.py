@@ -21,7 +21,6 @@ def reset_conversation():
 
 def handle_changes():
     reset_conversation()
-    client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
     vector_store_4 = QdrantVectorStore(client=client, collection_name=selection_dict[selection])
     index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
     st.session_state.chat_engine = index.as_chat_engine(chat_mode="openai", verbose=True)
@@ -49,11 +48,12 @@ selection = st.sidebar.selectbox(
     ['CCNL e Sentenze cassazione', 
      'AI ACT e Data Governance Act', 
     # 'FISGR'
-    ], on_change=handle_changes
+    ]
 )
 
 selection_dict = { 'CCNL e Sentenze cassazione':"RAG_4",
                   'AI ACT e Data Governance Act': "ai_act&data_governance_act"}
+st.sidebar.button('Aggiorna documenti', on_click=handle_changes, help="Aggiorna la collezione di documenti su cui fare la ricerca")
 
 # st.write(selection_dict[selection])
 # temperatura
