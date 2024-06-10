@@ -20,10 +20,10 @@ def reset_conversation():
     st.session_state.messages=[{"role": "assistant", "content": "Ciao, come posso esserti utile?"}]
 
 def handle_changes():
+    reset_conversation()
     client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
     vector_store_4 = QdrantVectorStore(client=client, collection_name=selection_dict[selection])
     index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
-    reset_conversation()
 
 
 st.set_page_config(page_title="Iniziamo!", page_icon="⚖️", layout="centered", initial_sidebar_state="auto", menu_items=None)
