@@ -154,11 +154,11 @@ if prompt: # Prompt for user input and save to chat history
     assistant_id=assistant_id,
     instructions="Per favore, rispondi alle domande utilizzando le informazioni fornite nei file. Quando aggiungi altre informazioni, segnale chiaramente come tali, con un colore diverso.")
     while run.status != 'completed':
-    time.sleep(1)
-    run = client.beta.threads.runs.retrieve(
-        thread_id=st.session_state.thread_id,
-        run_id=run.id
-    )
+      time.sleep(1)
+      run = client.beta.threads.runs.retrieve(
+          thread_id=st.session_state.thread_id,
+          run_id=run.id
+      )
 
     # Retrieve messages added by the assistant
     messages = client.beta.threads.messages.list(
