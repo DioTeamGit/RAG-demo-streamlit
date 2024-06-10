@@ -136,8 +136,8 @@ if "messages" not in st.session_state:
 
 # Display existing messages in the chat
 for message in st.session_state.messages:
-with st.chat_message(message["role"]):
-    st.markdown(message["content"])
+  with st.chat_message(message["role"]):
+      st.markdown(message["content"])
 
 # Chat input for the user
 if prompt := st.chat_input("Fai una domanda"):
