@@ -121,7 +121,8 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
     ]
 
 #st.write(st.session_state.chat_engine)
-
+if 'selected_query' not in st.session_state:
+    st.session_state.selected_query = None
 
 prompt=st.chat_input("Fai una domanda")
 #se seleziono il prompt dai buttons lo sovracrivo
