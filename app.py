@@ -55,7 +55,7 @@ format = st.sidebar.radio("Seleziona formato della risposta", options=['Formato 
 # Checkbox fonti
 st.sidebar.write("Aggiungi le fonti alla risposta:")
 
-fonti = st.sidebar.toggle("Cita le fonti")
+fonti = st.sidebar.toggle("Cita le fonti", value=True)
 
 #if fonti:
 #    context = context + "Per ogni informazione cita sempre le fonti da cui hai preso questa informazione e mettile in grassetto."
