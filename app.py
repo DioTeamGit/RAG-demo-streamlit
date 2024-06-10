@@ -90,8 +90,8 @@ if 'selected_query' not in st.session_state:
 
 today = datetime.datetime.now()
 this_year = today.year
-jan_1 = datetime.date(this_year, 1, 1)
-dec_31 = datetime.date(this_year-2, 12, 31)
+jan_1 = datetime.date(this_year-2, 1, 1)
+dec_31 = datetime.date(this_year, 12, 31)
 
 d = st.sidebar.date_input(
     "Seleziona l'intervallo di date in cui vuoi fare ricerca",
