@@ -121,7 +121,7 @@ query_texts_dgai = {
 }
 
 
-query_texts_dict = {"FISGR":query_texts_fisgr, "RAG_4":query_texts_ccnl_cass, "ai_act&data_governance_act":query_texts_dgai}
+query_texts_dict = {"FISGR":query_texts_fisgr, "CCNL e Sentenze cassazione":query_texts_ccnl_cass, "AI ACT e Data Governance Act":query_texts_dgai}
 
 query_texts= query_texts_dict[selection]
 for key, value in query_texts.items():
