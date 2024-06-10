@@ -58,7 +58,7 @@ st.sidebar.button('Aggiorna documenti', on_click=handle_changes, help="Aggiorna 
 # st.write(selection_dict[selection])
 # temperatura
 temperature = st.sidebar.slider("Seleziona la temperatura della risposta", min_value=0.0, max_value=1.0, value=0.5, step=0.01, 
-                                help= "Selezionando temperatura = 0, il modello genera risposte prevedibili e deterministiche, mentre Con temperatura = 1, le risposte sono più diverse e creative.")
+                                help= "Selezionando temperatura = 0, il modello genera risposte prevedibili e deterministiche, mentre selezionando temperatura = 1, le risposte sono più diverse e creative.")
 
 
 # Settings
