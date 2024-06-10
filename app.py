@@ -152,7 +152,7 @@ if prompt: # Prompt for user input and save to chat history
     run = client.beta.threads.runs.create(
     thread_id=st.session_state.thread_id,
     assistant_id=assistant_id,
-    instructions="Per favore, rispondi alle domande utilizzando le informazioni fornite nei file. Quando aggiungi altre informazioni, segnale chiaramente come tali, con un colore diverso.")
+    instructions="Per favore, rispondi alle domande utilizzando le informazioni fornite nei file. Quando aggiungi altre informazioni, segnale chiaramente come tali, con un colore diverso. Con il seguente formato: "+format)
     while run.status != 'completed':
       time.sleep(1)
       run = client.beta.threads.runs.retrieve(
@@ -171,7 +171,9 @@ if prompt: # Prompt for user input and save to chat history
 
 # Add the user's message to the existing thread
 
-
+for message in st.session_state.messages: # Display the prior chat messages
+    with st.chat_message(message["role"]):
+        st.write(message["content"])
 
 
 # Create a run with additional instructions
@@ -190,7 +192,20 @@ for message in assistant_messages_for_run:
     with st.chat_message("assistant"):
         st.markdown(full_response, unsafe_allow_html=True)
 
-
+if st.session_state.messages[-1]["role"] != "assistant":
+    with st.chat_message("assistant"):
+        with st.spinner("Sto elaborando una risposta..."):
+            response = process_message_with_citations(message)
+            #response = st.session_state.chat_engine.chat(prompt)
+            #sources = set([response.source_nodes[i].node.metadata["file_name"] for i in range(0,len(response.source_nodes))])
+            if fonti:
+                messaggio = response + "\nFonti:" #+ str(sources)
+                message = {"role": "assistant", "content": messaggio}
+            else:
+                messaggio = response
+                message = {"role": "assistant", "content": response}
+            st.write(messaggio)
+            st.session_state.messages.append(message) # Add response to message history
 
 with col2:
 # If last message is not from assistant, generate a new response
