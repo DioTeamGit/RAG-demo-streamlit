@@ -12,6 +12,18 @@ from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core import Settings
 import datetime
 
+def reset_conversation():
+    # Reset chat history and any other relevant state variables
+    st.session_state.chat_history = []
+    st.session_state.chat_engine.chat_history.clear()
+    # Clear the screen by rerunning the app
+    st.session_state.messages=[{"role": "assistant", "content": "Ciao, come posso esserti utile?"}]
+
+def handle_changes():
+    client = qdrant_client.QdrantClient('https://46e915dc-c126-4445-af6d-265c738b7848.us-east4-0.gcp.cloud.qdrant.io:6333', api_key=st.secrets["qdrant_key"])
+    vector_store_4 = QdrantVectorStore(client=client, collection_name=selection_dict[selection])
+    index = VectorStoreIndex.from_vector_store(vector_store=vector_store_4)
+    reset_conversation()
 
 
 st.set_page_config(page_title="Iniziamo!", page_icon="⚖️", layout="centered", initial_sidebar_state="auto", menu_items=None)
@@ -36,7 +48,7 @@ selection = st.sidebar.selectbox(
     ['CCNL e Sentenze cassazione', 
      'AI ACT e Data Governance Act', 
     # 'FISGR'
-    ], index= None,
+    ], onchange=handle_changes
 )
 
 selection_dict = { 'CCNL e Sentenze cassazione':"RAG_4",
