@@ -16,6 +16,8 @@ from bs4 import BeautifulSoup
 import requests
 import pdfkit
 import time
+import os
+
 
 client = openai
 # Set your OpenAI Assistant ID here
