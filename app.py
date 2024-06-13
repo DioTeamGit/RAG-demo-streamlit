@@ -20,6 +20,7 @@ import os
 
 
 client = openai
+openai.api_key = st.secrets.openai_key_p
 # Set your OpenAI Assistant ID here
 from dotenv import load_dotenv, find_dotenv
 
@@ -36,7 +37,7 @@ thread = client.beta.threads.create()
 st.set_page_config(page_title="Iniziamo!", page_icon=":speech_balloon:", layout="centered", initial_sidebar_state="auto", menu_items=None)
 
 st.session_state.thread_id = thread.id
-openai.api_key = st.secrets.openai_key_p
+
 
 
 
