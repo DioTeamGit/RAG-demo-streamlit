@@ -27,7 +27,7 @@ from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
 
 # ASSISTANT_ID is stored in a .env file at local level and as a github secret at remote level
-assistant_id = os.environ.get("ASSISTANT_ID")
+assistant_id = st.secrets.assistant_key
 thread = client.beta.threads.create()
 
 #st.write("thread id: ", thread.id)
