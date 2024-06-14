@@ -161,8 +161,6 @@ if "messages" not in st.session_state:
 
 if prompt: # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
     client.beta.threads.messages.create(
     thread_id=st.session_state.thread_id,
     role="user",
