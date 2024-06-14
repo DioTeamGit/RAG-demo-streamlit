@@ -161,46 +161,44 @@ if "messages" not in st.session_state:
 
 if prompt: # Prompt for user input and save to chat history
     st.session_state.messages.append({"role": "user", "content":  prompt})
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+    client.beta.threads.messages.create(
+    thread_id=st.session_state.thread_id,
+    role="user",
+    content=prompt
+    )
+    run = client.beta.threads.runs.create(
+    thread_id=st.session_state.thread_id,
+    assistant_id=assistant_id,
+    instructions="Per favore, rispondi alle domande utilizzando le informazioni fornite nei file. Quando aggiungi altre informazioni, segnale chiaramente come tali, con un colore diverso. Con il seguente formato: "+format)
+    while run.status != 'completed':
+      time.sleep(1)
+      run = client.beta.threads.runs.retrieve(
+          thread_id=st.session_state.thread_id,
+          run_id=run.id
+      )
 
-if st.session_state.messages[-1]["role"] != "assistant":
-    with st.chat_message("assistant"):
-        with st.spinner("Sto elaborando una risposta..."):
-            client.beta.threads.messages.create(
-            thread_id=st.session_state.thread_id,
-            role="user",
-            content=prompt
-            )
-            run = client.beta.threads.runs.create(
-            thread_id=st.session_state.thread_id,
-            assistant_id=assistant_id,
-            instructions="Per favore, rispondi alle domande utilizzando le informazioni fornite nei file. Quando aggiungi altre informazioni, segnale chiaramente come tali, con un colore diverso. Con il seguente formato: "+format)
-            while run.status != 'completed':
-                time.sleep(1)
-                run = client.beta.threads.runs.retrieve(
-                    thread_id=st.session_state.thread_id,
-                    run_id=run.id
-                )
+    # Retrieve messages added by the assistant
+    messages = client.beta.threads.messages.list(
+        thread_id=st.session_state.thread_id
+    )
 
-            # Retrieve messages added by the assistant
-            messages = client.beta.threads.messages.list(
-                thread_id=st.session_state.thread_id
-            )
+    
+    st.session_state.messages.append({"role": "user", "content":  prompt})
+    st.session_state_selected_query=None
 
-            
-            st.session_state.messages.append({"role": "user", "content":  prompt})
-            st.session_state_selected_query=None
-
-        # Add the user's message to the existing thread
-            assistant_messages_for_run = [
-                message for message in messages 
-                if message.run_id == run.id and message.role == "assistant"
-            ]
-            for message in assistant_messages_for_run:
-                full_response = process_message_with_citations(message)
-                #full_response = message
-                st.session_state.messages.append({"role": "assistant", "content": full_response})
-                with st.chat_message("assistant"):
-                    st.markdown(full_response, unsafe_allow_html=True)
+# Add the user's message to the existing thread
+    assistant_messages_for_run = [
+        message for message in messages 
+        if message.run_id == run.id and message.role == "assistant"
+    ]
+    for message in assistant_messages_for_run:
+        full_response = process_message_with_citations(message)
+        #full_response = message
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
+        with st.chat_message("assistant"):
+            st.markdown(full_response, unsafe_allow_html=True)
 
 # Display existing messages in the chat
 for message in st.session_state.messages:
