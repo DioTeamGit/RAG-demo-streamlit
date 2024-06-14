@@ -119,7 +119,17 @@ query_texts_fisgr = {"Controllo interno e funzioni specifiche": "Come viene gest
     "Gestione del personale": "Quali sono le linee guida e le responsabilità specificate per la gestione del personale, inclusi assunzioni e formazioni?"
 }
 
-for key, value in query_texts_fisgr.items():
+query_texts_ccnl_cass = {
+    "Riassunto punti chiave CCNL Sanità": "Riassumi punti chiave CCNL sanità",
+    "Diritti dei Dipendenti": "Descrivi i diritti dei dipendenti riguardo al pagamento degli straordinari.",
+    "Minimi tabellari CCNL commercio": "Riporta i minimi tabellari del CCNL commercio ",
+    "Precedenti Giuridici cassazione": "Quali precedenti giuridici sono stati considerati dalla Cassazione nella sentenza di denigrazione su Facebook?",
+    "Implicazioni legali contenuti denigratori":"Quali sono le implicazioni legali per un dipendente che pubblica contenuti denigratori su Facebook nei confronti del proprio datore di lavoro?",
+    "Bilanciamento libertà di espressione dipendente e responsabilità": "Qual è il bilanciamento tra la libertà di espressione del dipendente e le responsabilità verso il datore di lavoro in un contesto lavorativo?"
+}
+
+query_texts = query_texts_ccnl_cass
+for key, value in query_texts.items():
     if st.button(key):
         st.session_state.selected_query = value
 
