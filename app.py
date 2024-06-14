@@ -53,10 +53,10 @@ def process_message_with_citations(message):
         message_content.value = message_content.value.replace(annotation.text, f' [{index + 1}]')
         # Gather citations based on annotation attributes
         if (file_citation := getattr(annotation, 'file_citation', None)):
-            st.write(file_citation.quote)
+            st.write(file_citation.file_id)
             # Retrieve the cited file details (dummy response here since we can't call OpenAI)
             cited_file = {'filename': 'cited_document.pdf'}  # This should be replaced with actual file retrieval
-            citations.append(f'[{index + 1}] {file_citation.quote} from {cited_file["filename"]}')
+            citations.append(f'[{index + 1}] {file_citation.file_id} from {cited_file["filename"]}')
         elif (file_path := getattr(annotation, 'file_path', None)):
             # Placeholder for file download citation
             cited_file = {'filename': 'downloaded_document.pdf'}  # This should be replaced with actual file retrieval
