@@ -188,10 +188,10 @@ if prompt: # Prompt for user input and save to chat history
     st.session_state_selected_query=None
 
 # Add the user's message to the existing thread
-    #assistant_messages_for_run = [
-    #    message for message in messages 
-    #    if message.run_id == run.id and message.role == "assistant"
-    #]
+    assistant_messages_for_run = [
+        message for message in messages 
+        if message.run_id == run.id and message.role == "assistant"
+    ]
     for message in assistant_messages_for_run:
         full_response = process_message_with_citations(message)
         #full_response = message
@@ -200,9 +200,9 @@ if prompt: # Prompt for user input and save to chat history
             st.markdown(full_response, unsafe_allow_html=True)
 
 # Display existing messages in the chat
-for message in st.session_state.messages:
-  with st.chat_message(message["role"]):
-    st.markdown(message["content"])
+#for message in st.session_state.messages:
+#  with st.chat_message(message["role"]):
+#    st.markdown(message["content"])
 
 
 with col2:
