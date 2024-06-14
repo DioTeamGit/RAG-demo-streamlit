@@ -140,6 +140,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
         {"role": "assistant", "content": "Ciao, come posso esserti utile?"}
     ]
 
+
 #st.write(st.session_state.chat_engine)
 if 'selected_query' not in st.session_state:
     st.session_state.selected_query = None
@@ -160,7 +161,7 @@ if "messages" not in st.session_state:
 
 
 if prompt: # Prompt for user input and save to chat history
-    #st.session_state.messages.append({"role": "user", "content":  prompt})
+    st.session_state.messages.append({"role": "user", "content":  prompt})
     client.beta.threads.messages.create(
     thread_id=st.session_state.thread_id,
     role="user",
@@ -183,7 +184,7 @@ if prompt: # Prompt for user input and save to chat history
     )
 
     
-    st.session_state.messages.append({"role": "user", "content":  prompt})
+    #st.session_state.messages.append({"role": "user", "content":  prompt})
     st.session_state_selected_query=None
 
 # Add the user's message to the existing thread
