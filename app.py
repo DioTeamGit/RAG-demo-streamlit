@@ -46,7 +46,7 @@ def process_message_with_citations(message):
     message_content = message.content[0].text
     annotations = message_content.annotations if hasattr(message_content, 'annotations') else []
 
-    st.write(annotations)
+    #st.write(annotations)
     citations = []
 
     # Iterate over the annotations and add footnotes
@@ -55,7 +55,7 @@ def process_message_with_citations(message):
         message_content.value = message_content.value.replace(annotation.text, f' [{index + 1}]')
         # Gather citations based on annotation attributes
         if (file_citation := getattr(annotation, 'file_citation', None)):
-            st.write(file_citation.file_id)
+            #st.write(file_citation.file_id)
             # Retrieve the cited file details (dummy response here since we can't call OpenAI)
             cited_file = {'filename': 'cited_document.pdf'}  # This should be replaced with actual file retrieval
             citations.append(f'[{index + 1}] {file_citation.file_id} from {cited_file["filename"]}')
