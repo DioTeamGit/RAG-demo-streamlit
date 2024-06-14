@@ -45,6 +45,8 @@ def process_message_with_citations(message):
     """Extract content and annotations from the message and format citations as footnotes."""
     message_content = message.content[0].text
     annotations = message_content.annotations if hasattr(message_content, 'annotations') else []
+
+    st.write(annotations)
     citations = []
 
     # Iterate over the annotations and add footnotes
