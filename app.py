@@ -188,10 +188,10 @@ if prompt: # Prompt for user input and save to chat history
     st.session_state_selected_query=None
 
 # Add the user's message to the existing thread
-    assistant_messages_for_run = [
-        message for message in messages 
-        if message.run_id == run.id and message.role == "assistant"
-    ]
+    #assistant_messages_for_run = [
+    #    message for message in messages 
+    #    if message.run_id == run.id and message.role == "assistant"
+    #]
     for message in assistant_messages_for_run:
         full_response = process_message_with_citations(message)
         #full_response = message
