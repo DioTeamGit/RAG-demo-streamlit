@@ -183,7 +183,8 @@ if prompt: # Prompt for user input and save to chat history
         if message.run_id == run.id and message.role == "assistant"
     ]
     for message in assistant_messages_for_run:
-        full_response = process_message_with_citations(message)
+        #full_response = process_message_with_citations(message)
+        full_response = message
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         with st.chat_message("assistant"):
             st.markdown(full_response, unsafe_allow_html=True)
