@@ -148,8 +148,9 @@ prompt=st.chat_input("Fai una domanda")
 #se seleziono il prompt dai buttons lo sovracrivo
 if st.session_state.selected_query != None:
     prompt=st.session_state.selected_query
-    st.write(st.session_state.selected_query)
+    #st.write(st.session_state.selected_query)
     st.session_state.selected_query = None
+
 
 
 if "openai_model" not in st.session_state:
@@ -157,13 +158,9 @@ if "openai_model" not in st.session_state:
 if "messages" not in st.session_state:
         st.session_state.messages = []
 
-# Display existing messages in the chat
-for message in st.session_state.messages:
-  with st.chat_message(message["role"]):
-    st.markdown(message["content"])
 
 if prompt: # Prompt for user input and save to chat history
-  
+    st.session_state.messages.append({"role": "user", "content":  prompt})
     client.beta.threads.messages.create(
     thread_id=st.session_state.thread_id,
     role="user",
@@ -200,6 +197,12 @@ if prompt: # Prompt for user input and save to chat history
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         with st.chat_message("assistant"):
             st.markdown(full_response, unsafe_allow_html=True)
+
+# Display existing messages in the chat
+for message in st.session_state.messages:
+  with st.chat_message(message["role"]):
+    st.markdown(message["content"])
+
 
 with col2:
 # If last message is not from assistant, generate a new response
