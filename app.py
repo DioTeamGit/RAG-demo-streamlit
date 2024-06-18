@@ -128,7 +128,7 @@ query_texts_ccnl_cass = {
     "Bilanciamento libertà di espressione dipendente e responsabilità": "Qual è il bilanciamento tra la libertà di espressione del dipendente e le responsabilità verso il datore di lavoro in un contesto lavorativo?"
 }
 
-query_texts = query_texts_ccnl_cass
+query_texts = query_texts_fisgr
 for key, value in query_texts.items():
     if st.button(key):
         st.session_state.selected_query = value
