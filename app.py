@@ -22,32 +22,38 @@ import hmac
 import streamlit as st
 
 
-def check_password():
-    """Returns `True` if the user had the correct password."""
+import hmac
+import streamlit as st
 
-    def password_entered():
-        """Checks whether a password entered by the user is correct."""
-        if hmac.compare_digest(st.session_state["password"], st.secrets["password"]):
-            st.session_state["password_correct"] = True
+def check_credentials():
+    """Returns `True` if the username and password are correct."""
+
+    def credentials_entered():
+        """Checks whether the username and password entered by the user are correct."""
+        entered_username = st.session_state["username"]
+        entered_password = st.session_state["password"]
+        
+        if (entered_username in st.secrets["users"] and 
+            hmac.compare_digest(st.secrets["users"][entered_username], entered_password)):
+            st.session_state["credentials_correct"] = True
             del st.session_state["password"]  # Don't store the password.
         else:
-            st.session_state["password_correct"] = False
+            st.session_state["credentials_correct"] = False
 
-    # Return True if the password is validated.
-    if st.session_state.get("password_correct", False):
+    # Return True if the credentials are validated.
+    if st.session_state.get("credentials_correct", False):
         return True
 
-    # Show input for password.
-    st.text_input(
-        "Password", type="password", on_change=password_entered, key="password"
-    )
-    if "password_correct" in st.session_state:
-        st.error("😕 Password incorrect")
+    # Show input for username and password.
+    st.text_input("Username", key="username")
+    st.text_input("Password", type="password", on_change=credentials_entered, key="password")
+    if "credentials_correct" in st.session_state:
+        st.error("😕 Username or password incorrect")
     return False
 
 
-if not check_password():
-    st.stop()  # Do not continue if check_password is not True.
+if not check_credentials():
+    st.stop()  # Do not continue if check_credentials is not True.
 
 
 
