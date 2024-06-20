@@ -54,7 +54,8 @@ selection = st.sidebar.selectbox(
 
 selection_dict = { 'CCNL e Sentenze cassazione':"RAG_4",
                   'AI ACT e Data Governance Act': "ai_act&data_governance_act"}
-st.sidebar.button('Aggiorna documenti', on_click=handle_changes, help="Aggiorna la collezione di documenti su cui fare la ricerca")
+with streamlit_analytics.track():
+  st.sidebar.button('Aggiorna documenti', on_click=handle_changes, help="Aggiorna la collezione di documenti su cui fare la ricerca")
 
 # st.write(selection_dict[selection])
 # temperatura
