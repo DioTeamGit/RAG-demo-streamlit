@@ -165,8 +165,8 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 #st.write(st.session_state.chat_engine)
 
-with streamlit_analytics.track():
-  prompt=st.chat_input("Fai una domanda")
+
+prompt=st.chat_input("Fai una domanda")
 #se seleziono il prompt dai buttons lo sovracrivo
 if st.session_state.selected_query != None:
     prompt=st.session_state.selected_query
