@@ -11,6 +11,7 @@ from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core import Settings
 import datetime
+import streamlit-analytics
 
 def reset_conversation():
     # Reset chat history and any other relevant state variables
@@ -163,8 +164,8 @@ if "chat_engine" not in st.session_state.keys(): # Initialize the chat engine
 
 #st.write(st.session_state.chat_engine)
 
-
-prompt=st.chat_input("Fai una domanda")
+with streamlit_analytics.track():
+  prompt=st.chat_input("Fai una domanda")
 #se seleziono il prompt dai buttons lo sovracrivo
 if st.session_state.selected_query != None:
     prompt=st.session_state.selected_query
