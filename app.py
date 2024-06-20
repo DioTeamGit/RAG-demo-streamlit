@@ -11,7 +11,7 @@ from llama_index.embeddings.openai import OpenAIEmbedding
 from llama_index.vector_stores.qdrant import QdrantVectorStore
 from llama_index.core import Settings
 import datetime
-import streamlit-analytics
+import streamlit_analytics
 
 def reset_conversation():
     # Reset chat history and any other relevant state variables
