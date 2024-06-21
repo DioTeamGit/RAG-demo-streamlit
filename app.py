@@ -142,10 +142,10 @@ query_texts_dgai = {
 query_texts_dict = {"FISGR":query_texts_fisgr, "CCNL e Sentenze cassazione":query_texts_ccnl_cass, "AI ACT e Data Governance Act":query_texts_dgai}
 
 query_texts= query_texts_dict[selection]
-for key, value in query_texts.items():
-  with streamlit_analytics.track():
-    if st.button(key):
-        st.session_state.selected_query = value
+with streamlit_analytics.track():
+  for key, value in query_texts.items():
+      if st.button(key):
+          st.session_state.selected_query = value
 
 # Display the response in the main area if a query is selected
 
