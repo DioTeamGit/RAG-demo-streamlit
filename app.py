@@ -173,10 +173,12 @@ if st.session_state.selected_query != None:
     st.session_state.selected_query = None
 
 if prompt: # Prompt for user input and save to chat history
-  with streamlit_analytics.track():
     st.session_state.messages.append({"role": "user", "content":  prompt})
     st.session_state_selected_query=None
 
+with streamlit_analytics.track():
+  st.write(prompt)
+  
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
       st.write(message["content"])
