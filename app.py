@@ -24,6 +24,7 @@ import streamlit as st
 
 import hmac
 import streamlit as st
+import streamlit_analytics2 as streamlit_analytics
 
 def check_credentials():
     """Returns `True` if the username and password are correct."""
@@ -183,12 +184,13 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
 if 'selected_query' not in st.session_state:
     st.session_state.selected_query = None
 
-prompt=st.chat_input("Fai una domanda")
-#se seleziono il prompt dai buttons lo sovracrivo
-if st.session_state.selected_query != None:
-    prompt=st.session_state.selected_query
-    #st.write(st.session_state.selected_query)
-    st.session_state.selected_query = None
+with streamlit_analytics.track(verbose=True):
+  prompt=st.chat_input("Fai una domanda")
+  #se seleziono il prompt dai buttons lo sovracrivo
+  if st.session_state.selected_query != None:
+      prompt=st.session_state.selected_query
+      #st.write(st.session_state.selected_query)
+      st.session_state.selected_query = None
 
 
 
