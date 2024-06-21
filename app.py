@@ -143,6 +143,7 @@ query_texts_dict = {"FISGR":query_texts_fisgr, "CCNL e Sentenze cassazione":quer
 
 query_texts= query_texts_dict[selection]
 for key, value in query_texts.items():
+  with streamlit_analytics.track():
     if st.button(key):
         st.session_state.selected_query = value
 
@@ -175,9 +176,6 @@ with streamlit_analytics.track():
   if prompt: # Prompt for user input and save to chat history
       st.session_state.messages.append({"role": "user", "content":  prompt})
       st.session_state_selected_query=None
-  
-  
-  st.write(prompt)
   
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
