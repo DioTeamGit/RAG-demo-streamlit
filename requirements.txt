@@ -12,3 +12,4 @@ requests
 beautifulsoup4
 pdfkit
 python-dotenv
+streamlit_analytics2
