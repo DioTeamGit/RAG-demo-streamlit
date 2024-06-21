@@ -9,4 +9,4 @@ qdrant_client
 llama-index-vector-stores-qdrant
 fastembed
 python-dotenv
-streamlit-analytics
+streamlit-analytics2
