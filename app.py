@@ -184,7 +184,7 @@ if "messages" not in st.session_state.keys(): # Initialize the chat messages his
 if 'selected_query' not in st.session_state:
     st.session_state.selected_query = None
 
-with streamlit_analytics.track(verbose=True):
+with streamlit_analytics.track(verbose=True, firestore_key_file=st.secrets["firestore_key"], firestore_collection_name="counts"):
   prompt=st.chat_input("Fai una domanda")
   #se seleziono il prompt dai buttons lo sovracrivo
   if st.session_state.selected_query != None:
