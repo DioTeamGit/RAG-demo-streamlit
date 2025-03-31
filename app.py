@@ -66,7 +66,7 @@ from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
 
 # ASSISTANT_ID is stored in a .env file at local level and as a github secret at remote level
-assistant_id = st.secrets.assistant_key
+assistant_id = st.secrets.assistant_key_BONELLI_EREDE
 thread = client.beta.threads.create()
 
 #st.write("thread id: ", thread.id)
@@ -167,7 +167,7 @@ query_texts_ccnl_cass = {
     "Bilanciamento libertà di espressione dipendente e responsabilità": "Qual è il bilanciamento tra la libertà di espressione del dipendente e le responsabilità verso il datore di lavoro in un contesto lavorativo?"
 }
 
-query_texts = query_texts_fisgr
+query_texts = query_texts_ccnl_cass
 for key, value in query_texts.items():
     if st.button(key):
         st.session_state.selected_query = value
