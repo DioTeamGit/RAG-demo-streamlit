@@ -167,7 +167,15 @@ query_texts_ccnl_cass = {
     "Bilanciamento libertà di espressione dipendente e responsabilità": "Qual è il bilanciamento tra la libertà di espressione del dipendente e le responsabilità verso il datore di lavoro in un contesto lavorativo?"
 }
 
-query_texts = query_texts_ccnl_cass
+query_texts_pareri = {
+    "Parere legale diritti maternità/paternità": "Redigi un parere legale sui diritti dei lavoratori durante il periodo di maternità o paternità, analizzando le disposizioni normative relative ai congedi e alla retribuzione.",
+    "Parere legale licenziamento per giusta causa": "Fornisci un parere legale in merito ai requisiti e alle procedure per un licenziamento per giusta causa in Italia.",
+    "Parere legale demansionamento": "Elabora un parere legale sulle implicazioni legali e i diritti del lavoratore in caso di demansionamento.",
+    "Parere legale risarcimento danni mobbing": "Redigi un parere legale sui presupposti e le modalità per richiedere un risarcimento danni per mobbing sul luogo di lavoro.",
+    "Parere legale contratto a tempo determinato": "Fornisci un parere legale sulla disciplina dei contratti a tempo determinato, con particolare attenzione alle causali e ai limiti di durata."
+}
+
+query_texts = query_texts_pareri
 for key, value in query_texts.items():
     if st.button(key):
         st.session_state.selected_query = value
